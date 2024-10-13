@@ -38,7 +38,7 @@ const EventTime: React.FC = () => {
         <Container>
             {/* 左側 - 活動時間 */}
             <LeftContainer>
-                <Title>活動時間</Title>
+                <Title>活動資訊</Title>
             </LeftContainer>
 
             {/* 右側 - 預留位置 */}

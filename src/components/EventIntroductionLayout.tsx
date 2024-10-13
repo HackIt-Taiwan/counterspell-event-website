@@ -34,43 +34,9 @@ const Description = styled.p`
     font-size: 18px;
     line-height: 1.6;
     text-align: left;
-    max-width: 400px;
+    max-width: 700px;
     word-wrap: break-word;
     margin-bottom: 20px;
-`;
-
-// "Read More" 按鈕的容器
-const ReadMoreContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-
-// "Read More" 按鈕樣式
-const ReadMoreButton = styled.button`
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border: none;
-    background: none;
-    font-size: 20px;
-    font-family: 'Arial', sans-serif;
-    cursor: pointer;
-    transition: color 0.3s ease;
-
-    &:hover {
-        color: #007BFF;
-    }
-`;
-
-// 箭頭樣式
-const Arrow = styled.span`
-    margin-left: 10px;
-    display: inline-block;
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    padding: 3px;
-    transform: rotate(-45deg);
 `;
 
 // 右側動畫預留區域
@@ -84,25 +50,17 @@ const RightColumn = styled.div`
 interface EventIntroductionLayoutProps {
     title: React.ReactNode;  // 支援 JSX 元素
     description: string;
-    onReadMoreClick: () => void;
 }
 
 const EventIntroductionLayout: React.FC<EventIntroductionLayoutProps> = ({
                                                                              title,
                                                                              description,
-                                                                             onReadMoreClick,
                                                                          }) => {
     return (
         <SectionContainer>
             <TextContainer>
                 <Title>{title}</Title>
                 <Description>{description}</Description>
-                <ReadMoreContainer>
-                    <ReadMoreButton onClick={onReadMoreClick}>
-                        Read More
-                        <Arrow />
-                    </ReadMoreButton>
-                </ReadMoreContainer>
             </TextContainer>
 
             {/* 右側預留動畫區域 */}

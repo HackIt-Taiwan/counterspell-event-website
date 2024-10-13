@@ -2,16 +2,10 @@ import React from 'react';
 import EventIntroductionLayout from './EventIntroductionLayout';
 
 const CounterspellIntroductionSection: React.FC = () => {
-    const handleReadMoreClick = () => {
-        // 點擊處理邏輯
-        console.log('Read More clicked!');
-    };
-
     return (
         <EventIntroductionLayout
             title="Counterspell Taiwan 是什麼？"
-            description="這是一個以青少年為主要對象的競技賽事，專注於遊戲開發與技術創新，旨在鼓勵創意和協作。參賽者將有機會展示他們的創意，並與其他充滿熱情的團隊進行交流與合作。"
-            onReadMoreClick={handleReadMoreClick}
+            description="Counterspell Taiwan 是台灣首次由青少年為青少年舉辦的黑客松活動！這是一場 30 小時的挑戰，無論你對程式開發、設計、策劃還是創意有興趣，這裡都為你準備了一個可以發揮潛能的舞台！快來加入我們，讓你的創意點子變成現實，成為台灣創新未來的一部分吧！"
         />
     );
 };

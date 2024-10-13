@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import city from '../assets/city.svg';
 
 interface TransitionUFOAnimationProps {
     scrollSpeed: number; // 控制 UFO 移動速度的比例
@@ -20,21 +19,16 @@ const UFO = styled.div<{ positionY: number }>`
     transition: transform 0.1s ease-out;
 `;
 
-// 定義 Section 容器，覆蓋整個螢幕寬度，並設置背景的視差效果
-const SectionContainer = styled.div<{ height: number; backgroundPositionY: number }>`
+// 定義 Section 容器，覆蓋整個螢幕寬度
+const SectionContainer = styled.div<{ height: number }>`
     height: ${(props) => props.height}px;
     width: 100vw; /* 覆蓋整個螢幕寬度 */
     position: relative;
     overflow: hidden;
-    background-image: url(${city});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center ${(props) => props.backgroundPositionY}px; /* 根據滾動改變背景位置 */
 `;
 
 const TransitionUFOAnimation: React.FC<TransitionUFOAnimationProps> = ({ scrollSpeed, sectionHeight }) => {
     const [positionY, setPositionY] = useState(window.innerHeight); // UFO 初始位置為螢幕底部
-    const [backgroundPositionY, setBackgroundPositionY] = useState(0); // 背景的初始位置
     const sectionRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -51,10 +45,6 @@ const TransitionUFOAnimation: React.FC<TransitionUFOAnimationProps> = ({ scrollS
                     // UFO移動邏輯：只改變Y軸位置，從螢幕底部往上移動
                     const yPos = windowHeight - animationProgress * windowHeight * scrollSpeed;
                     setPositionY(yPos);
-
-                    // 背景移動邏輯：較緩慢地改變背景Y軸位置，產生視差效果
-                    const bgPosY = -scrollPosition * 3; // 背景移動得比 UFO 慢
-                    setBackgroundPositionY(bgPosY);
                 }
             }
         };
@@ -67,7 +57,7 @@ const TransitionUFOAnimation: React.FC<TransitionUFOAnimationProps> = ({ scrollS
     }, [scrollSpeed, sectionHeight]);
 
     return (
-        <SectionContainer ref={sectionRef} height={sectionHeight} backgroundPositionY={backgroundPositionY}>
+        <SectionContainer ref={sectionRef} height={sectionHeight}>
             <UFO positionY={positionY} />
         </SectionContainer>
     );
