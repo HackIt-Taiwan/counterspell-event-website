@@ -1,3 +1,9 @@
+/* 全局樣式 */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -25,9 +31,18 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column; /* 確保垂直排列 */
+  align-items: stretch;    /* 確保子元素填滿寬度 */
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;     /* 隱藏水平溢出 */
+}
+
+#root {
+  max-width: 100%;
+  width: 100%;
+
+  text-align: center;
 }
 
 h1 {
@@ -65,4 +80,11 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@font-face {
+  font-family: 'Audiowide';
+  src: url('./assets/fonts/Audiowide-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

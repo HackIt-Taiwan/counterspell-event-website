@@ -1,22 +1,16 @@
-// src/App.tsx
-
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import NavButtons from "./components/NavButtons.tsx";
 
-/**
- * App - The main application component that renders the homepage.
- *
- * @component
- * @example
- * return (
- *   <App />
- * )
- */
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <HomePage />
-        </div>
+        <Router>
+            <NavButtons />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+            </Routes>
+        </Router>
     );
 };
 
