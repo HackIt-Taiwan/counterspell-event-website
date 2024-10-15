@@ -39,8 +39,8 @@ const Planet = styled.div<{ xOffset: number; yOffset: number; scale: number; fli
     font-family: Arial, sans-serif;
     border-radius: 50%;
     position: absolute;
-    top: ${(props) => props.yOffset}px;
-    left: ${(props) => props.xOffset}px;
+    top: ${(props) => props.yOffset}vh;
+    left: ${(props) => props.xOffset}vw;
     transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
     padding: ${(props) => 12 * props.scale}px;
     animation: ${(props) => float(props.floatOffset)} ${(props) => props.animationDuration} ease-in-out infinite;
@@ -55,8 +55,8 @@ const Planet = styled.div<{ xOffset: number; yOffset: number; scale: number; fli
 
 const PlanetContainer = styled.div<{ xOffset: number; yOffset: number }>`
     position: absolute;
-    top: ${(props) => props.yOffset}px;
-    left: ${(props) => props.xOffset}px;
+    top: ${(props) => props.yOffset}vh;
+    left: ${(props) => props.xOffset}vw;
 `;
 
 const Mission: React.FC = () => {
@@ -75,10 +75,10 @@ const Mission: React.FC = () => {
             <Title>活動宗旨</Title>
 
             {/* 星球 A */}
-            <PlanetContainer xOffset={-200} yOffset={-100}>
+            <PlanetContainer xOffset={10} yOffset={20}>
                 <Planet
-                    xOffset={1400}
-                    yOffset={160}
+                    xOffset={10}
+                    yOffset={0}
                     scale={0.9}
                     floatOffset={10} // 浮動幅度
                     animationDuration="5s" // 浮動速度
@@ -90,13 +90,13 @@ const Mission: React.FC = () => {
             </PlanetContainer>
 
             {/* 星球 B */}
-            <PlanetContainer xOffset={100} yOffset={-200}>
+            <PlanetContainer xOffset={40} yOffset={60}>
                 <Planet
-                    xOffset={80}
-                    yOffset={500}
+                    xOffset={-30}
+                    yOffset={-5}
                     scale={1.7}
-                    floatOffset={15} // 浮動幅度
-                    animationDuration="7s" // 浮動速度
+                    floatOffset={15}
+                    animationDuration="7s"
                     flipped={flippedPlanets['宗旨 B'] || false}
                     onMouseEnter={() => handlePlanetHover('宗旨 B')}
                 >
@@ -105,10 +105,10 @@ const Mission: React.FC = () => {
             </PlanetContainer>
 
             {/* 星球 C */}
-            <PlanetContainer xOffset={-150} yOffset={200}>
+            <PlanetContainer xOffset={70} yOffset={10}>
                 <Planet
-                    xOffset={500}
-                    yOffset={-150}
+                    xOffset={5}
+                    yOffset={5}
                     scale={1}
                     floatOffset={8} // 浮動幅度
                     animationDuration="6s" // 浮動速度
@@ -120,10 +120,10 @@ const Mission: React.FC = () => {
             </PlanetContainer>
 
             {/* 星球 D */}
-            <PlanetContainer xOffset={250} yOffset={100}>
+            <PlanetContainer xOffset={90} yOffset={50}>
                 <Planet
-                    xOffset={800}
-                    yOffset={250}
+                    xOffset={-20}
+                    yOffset={0}
                     scale={2}
                     floatOffset={12} // 浮動幅度
                     animationDuration="8s" // 浮動速度

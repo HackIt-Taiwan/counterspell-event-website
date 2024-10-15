@@ -18,7 +18,7 @@ const NavContainer = styled.nav`
     z-index: 1000;
 
     @media (max-width: 600px) {
-        justify-content: center; /* 小螢幕上居中對齊 */
+        justify-content: center;
         gap: 10px;
         padding: 10px;
     }
@@ -65,8 +65,8 @@ const SolidButton = styled.button`
 const NavButtons: React.FC = () => {
     return (
         <NavContainer>
-            <TextButton>工作坊</TextButton>
             <TextButton>最新消息</TextButton>
+            <TextButton>工作坊</TextButton>
             <SolidButton>報名活動</SolidButton>
         </NavContainer>
     );
