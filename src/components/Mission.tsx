@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-// 定義浮動動畫，給不同的行星不同的浮動幅度與速度
+// Define floating animation with different offsets and durations
 const float = (offset: number) => keyframes`
     0% { transform: translateY(0); }
     50% { transform: translateY(${offset}px); }
     100% { transform: translateY(0); }
 `;
 
-// 容器樣式，設置整個區域的高度
+// Container for the mission section
 const MissionSectionContainer = styled.div`
     position: relative;
     height: 100vh;
@@ -16,126 +16,210 @@ const MissionSectionContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 100px;
+
+    /* Responsive styles for small screens */
+    @media (max-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+        padding: 20px;
+    }
 `;
 
-// 活動宗旨標題，放置在頁面中央
+// Title styled component
 const Title = styled.h1`
     position: absolute;
     font-size: 72px;
     font-family: Arial, sans-serif;
     text-align: center;
+
+    @media (max-width: 900px) {
+        position: static;
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
 `;
 
-// 行星樣式，使用灰色圓形作為占位符，並根據 scale 調整大小，添加浮動動畫和翻牌效果
-const Planet = styled.div<{ xOffset: number; yOffset: number; scale: number; flipped: boolean; floatOffset: number; animationDuration: string }>`
-    width: ${(props) => 150 * props.scale}px;
-    height: ${(props) => 150 * props.scale}px;
+// Planet styled component
+const Planet = styled.div<{
+  scale: number;
+  floatOffset: number;
+  animationDuration: string;
+  flipped: boolean;
+  isCard: boolean;
+}>`
+    width: ${(props) => (props.isCard ? '100%' : `${150 * props.scale}px`)};
+    height: ${(props) => (props.isCard ? 'auto' : `${150 * props.scale}px`)};
     background-color: ${(props) => (props.flipped ? '#f0c419' : 'gray')};
     color: ${(props) => (props.flipped ? 'white' : 'transparent')};
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: ${(props) => 17 * props.scale}px;
+    font-size: ${(props) => (props.isCard ? '1em' : `${17 * props.scale}px`)};
     font-family: Arial, sans-serif;
-    border-radius: 50%;
-    position: absolute;
-    top: ${(props) => props.yOffset}vh;
-    left: ${(props) => props.xOffset}vw;
+    border-radius: ${(props) => (props.isCard ? '12px' : '50%')};
+    position: ${(props) => (props.isCard ? 'static' : 'absolute')};
+    padding: ${(props) => (props.isCard ? '20px' : `${12 * props.scale}px`)};
+    margin: ${(props) => (props.isCard ? '10px 0' : '0')};
+    box-shadow: ${(props) =>
+  props.isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
+    width: ${(props) => (props.isCard ? '90%' : `${150 * props.scale}px`)};
     transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
-    padding: ${(props) => 12 * props.scale}px;
-    animation: ${(props) => float(props.floatOffset)} ${(props) => props.animationDuration} ease-in-out infinite;
 
+    /* Floating animation for non-card layout */
+    animation: ${(props) =>
+  !props.isCard ? float(props.floatOffset) : 'none'}
+        ${(props) => props.animationDuration} ease-in-out infinite;
+
+    /* Hover and click effects */
     &:hover {
-        transform: ${(props) => (props.flipped ? 'none' : 'scale(1.1)')};
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-        background-color: #f0c419; /* 翻牌效果的顏色變化 */
-        color: white; /* 顯示文字 */
+        transform: ${(props) =>
+  props.isCard
+    ? 'none'
+    : props.flipped
+      ? 'none'
+      : 'scale(1.1)'};
+        box-shadow: ${(props) =>
+  props.isCard
+    ? '0 6px 12px rgba(0, 0, 0, 0.2)'
+    : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
+        background-color: #f0c419;
+        color: white;
     }
 `;
 
+// PlanetContainer styled component for non-card layout
 const PlanetContainer = styled.div<{ xOffset: number; yOffset: number }>`
-    position: absolute;
-    top: ${(props) => props.yOffset}vh;
-    left: ${(props) => props.xOffset}vw;
+  position: absolute;
+  top: ${(props) => props.yOffset}vh;
+  left: ${(props) => props.xOffset}vw;
+
+  @media (max-width: 900px) {
+    position: static;
+    width: 100%;
+  }
 `;
 
+// CardContainer styled component for card layout
+const CardContainer = styled.div`
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+// Mission component
 const Mission: React.FC = () => {
-    const [flippedPlanets, setFlippedPlanets] = useState<{ [key: string]: boolean }>({});
+  const [flippedPlanets, setFlippedPlanets] = useState<{ [key: string]: boolean }>({});
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(window.innerWidth < 900);
 
-    const handlePlanetHover = (mission: string) => {
-        setFlippedPlanets((prevState) => ({
-            ...prevState,
-            [mission]: true
-        }));
-    };
+  // Handler to update screen size
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 900);
+  };
 
-    return (
-        <MissionSectionContainer>
-            {/* 中央的活動宗旨標題 */}
-            <Title>活動宗旨</Title>
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-            {/* 星球 A */}
-            <PlanetContainer xOffset={10} yOffset={20}>
-                <Planet
-                    xOffset={10}
-                    yOffset={0}
-                    scale={0.9}
-                    floatOffset={10} // 浮動幅度
-                    animationDuration="5s" // 浮動速度
-                    flipped={flippedPlanets['宗旨 A'] || false}
-                    onMouseEnter={() => handlePlanetHover('宗旨 A')}
-                >
-                    激發創意與自我挑戰
-                </Planet>
-            </PlanetContainer>
+  // Handler for flipping planets/cards
+  const handleFlip = (mission: string) => {
+    setFlippedPlanets((prevState) => ({
+      ...prevState,
+      [mission]: !prevState[mission],
+    }));
+  };
 
-            {/* 星球 B */}
-            <PlanetContainer xOffset={40} yOffset={60}>
-                <Planet
-                    xOffset={-30}
-                    yOffset={-5}
-                    scale={1.7}
-                    floatOffset={15}
-                    animationDuration="7s"
-                    flipped={flippedPlanets['宗旨 B'] || false}
-                    onMouseEnter={() => handlePlanetHover('宗旨 B')}
-                >
-                    促進跨領域合作
-                </Planet>
-            </PlanetContainer>
+  // Data for missions
+  const missions = [
+    {
+      key: '宗旨 A',
+      text: '激發創意與自我挑戰',
+      xOffset: 20,
+      yOffset: 20,
+      scale: 0.9,
+      floatOffset: 10,
+      animationDuration: '5s',
+    },
+    {
+      key: '宗旨 B',
+      text: '促進跨領域合作',
+      xOffset: 15,
+      yOffset: 50,
+      scale: 1.7,
+      floatOffset: 15,
+      animationDuration: '7s',
+    },
+    {
+      key: '宗旨 C',
+      text: '強化問題解決與實踐能力',
+      xOffset: 70,
+      yOffset: 10,
+      scale: 1,
+      floatOffset: 8,
+      animationDuration: '6s',
+    },
+    {
+      key: '宗旨 D',
+      text: '推動青少年科技教育與創新',
+      xOffset: 70,
+      yOffset: 40,
+      scale: 2,
+      floatOffset: 12,
+      animationDuration: '8s',
+    },
+  ];
 
-            {/* 星球 C */}
-            <PlanetContainer xOffset={70} yOffset={10}>
-                <Planet
-                    xOffset={5}
-                    yOffset={5}
-                    scale={1}
-                    floatOffset={8} // 浮動幅度
-                    animationDuration="6s" // 浮動速度
-                    flipped={flippedPlanets['宗旨 C'] || false}
-                    onMouseEnter={() => handlePlanetHover('宗旨 C')}
-                >
-                    強化問題解決與實踐能力
-                </Planet>
-            </PlanetContainer>
+  return (
+    <MissionSectionContainer>
+      {/* Central Title */}
+      <Title>活動宗旨</Title>
 
-            {/* 星球 D */}
-            <PlanetContainer xOffset={90} yOffset={50}>
-                <Planet
-                    xOffset={-20}
-                    yOffset={0}
-                    scale={2}
-                    floatOffset={12} // 浮動幅度
-                    animationDuration="8s" // 浮動速度
-                    flipped={flippedPlanets['宗旨 D'] || false}
-                    onMouseEnter={() => handlePlanetHover('宗旨 D')}
-                >
-                    推動青少年科技教育與創新
-                </Planet>
-            </PlanetContainer>
-        </MissionSectionContainer>
-    );
+      {isSmallScreen ? (
+        // Card Layout for small screens
+        <CardContainer>
+          {missions.map((mission) => (
+            <Planet
+              key={mission.key}
+              scale={mission.scale}
+              floatOffset={mission.floatOffset}
+              animationDuration={mission.animationDuration}
+              flipped={flippedPlanets[mission.key] || false}
+              isCard={true}
+              onClick={() => handleFlip(mission.key)}
+            >
+              {flippedPlanets[mission.key]
+                ? mission.text
+                : '點擊以查看詳情'}
+            </Planet>
+          ))}
+        </CardContainer>
+      ) : (
+        // Original Planet Layout for large screens
+        missions.map((mission) => (
+          <PlanetContainer
+            key={mission.key}
+            xOffset={mission.xOffset}
+            yOffset={mission.yOffset}
+          >
+            <Planet
+              scale={mission.scale}
+              floatOffset={mission.floatOffset}
+              animationDuration={mission.animationDuration}
+              flipped={flippedPlanets[mission.key] || false}
+              isCard={false}
+              onClick={() => handleFlip(mission.key)}
+              onMouseEnter={() => handleFlip(mission.key)}
+            >
+              {mission.text}
+            </Planet>
+          </PlanetContainer>
+        ))
+      )}
+    </MissionSectionContainer>
+  );
 };
 
 export default Mission;

@@ -1,3 +1,6 @@
+# Docker Compose Configuration
+# Defines services, networks, and volumes for the Counterspell Event Client.
+
 services:
   event-website:
     image: node:latest

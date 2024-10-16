@@ -1,3 +1,5 @@
+// CounterspellIntroductionSection Component
+// Provides an introduction section for Counterspell Taiwan, utilizing a reusable layout component.
 import React from 'react';
 import EventIntroductionLayout from './EventIntroductionLayout';
 

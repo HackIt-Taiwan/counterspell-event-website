@@ -1,29 +1,32 @@
+// HeroUFO Component
+// Displays an animated UFO image within the Hero section, utilizing floating animations.
+
 import React from 'react';
 import styled from 'styled-components';
 import UFOImage from '../assets/ufo.png';
 import { float } from '../animations';
 
-// 容器，應用動畫和樣式
+// Container for the UFO with floating animation.
 const UFOContainer = styled.div`
-    width: 100px;
-    height: auto;
-    animation: ${float} 3s ease-in-out infinite;
-    max-width: 100%;
+  width: 100px;
+  height: auto;
+  animation: ${float} 3s ease-in-out infinite;
+  max-width: 100%;
 `;
 
-// 圖片的樣式
+// Styled image for the UFO.
 const UFOImageStyle = styled.img`
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 `;
 
-// UFO 組件
+// HeroUFO Component
 const HeroUFO: React.FC = () => {
-    return (
-        <UFOContainer>
-            <UFOImageStyle src={UFOImage} alt="UFO Image" />
-        </UFOContainer>
-    );
+  return (
+    <UFOContainer>
+      <UFOImageStyle src={UFOImage} alt="UFO Image" />
+    </UFOContainer>
+  );
 };
 
 export default HeroUFO;

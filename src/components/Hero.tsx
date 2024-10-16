@@ -1,68 +1,91 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeroUFO from "./HeroUFO";
+import HeroUFO from './HeroUFO';
 
 const HeroContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+
+  @media (max-width: 1000px) {
+    height: auto;
+  }
+
+  @media (max-width: 800px) {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
 `;
 
 const TitleContainer = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-family: 'Audiowide', sans-serif;
-    top: -100px;
-    left: -20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-family: 'Audiowide', sans-serif;
+  top: -100px;
+  left: -20px;
 
-    @media (max-width: 600px) {
-        flex-direction: column;
-        top: 0;
-        left: 0;
-    }
+  @media (max-width: 1000px) {
+    top: -80px;
+    left: -10px;
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    top: 0;
+    left: 0;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    top: 0;
+    left: 0;
+  }
 `;
 
 const Title = styled.h1`
-    font-size: 72px;
-    color: black;
-    text-align: center;
-
-    @media (max-width: 600px) {
-        font-size: 48px;
-    }
+  font-size: clamp(24px, 5vw, 72px);
+  color: white;
+  text-align: center;
 `;
 
 const UFOWrapper = styled.div`
-    position: absolute;
-    top: 0;
-    right: -150px;
-    transform: translate(-50%, -50%); /* 向左移動 50% 的自身寬度，避免溢出 */
+  position: absolute;
+  top: 0;
+  right: -150px;
+  transform: translate(-50%, -50%);
 
-    @media (max-width: 600px) {
-        position: static;
-        transform: none;
-        margin-top: 20px;
-    }
+  @media (max-width: 1000px) {
+    width: 80px;
+    right: -100px;
+  }
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Hero: React.FC = () => {
-    return (
-        <HeroContainer>
-            <TitleContainer>
-                <Title>Counterspell Taiwan</Title>
-                <UFOWrapper>
-                    <HeroUFO />
-                </UFOWrapper>
-            </TitleContainer>
-        </HeroContainer>
-    );
+  return (
+    <HeroContainer>
+      <TitleContainer>
+        <Title>Counterspell Taiwan</Title>
+        <UFOWrapper>
+          <HeroUFO />
+        </UFOWrapper>
+      </TitleContainer>
+    </HeroContainer>
+  );
 };
 
 export default Hero;

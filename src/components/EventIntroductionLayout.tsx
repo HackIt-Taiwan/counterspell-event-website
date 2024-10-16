@@ -1,72 +1,97 @@
+/**
+ * EventIntroductionLayout Component
+ * A reusable layout component for displaying event introduction sections with a customizable title and description.
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 
-// 通用的事件介紹佈局容器
+// Container for the entire section, flexibly arranging content.
 const SectionContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    padding-left: 100px;
-    height: 100vh;
-    box-sizing: border-box;
-`;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 100px 50px 50px;
+  height: 100vh;
+  box-sizing: border-box;
 
-// 左側文本介紹容器
-const TextContainer = styled.div`
-    display: flex;
+  @media (max-width: 800px) {
     flex-direction: column;
-    align-items: flex-start;
-    margin-right: 20px;
+    padding: 20px;
+    height: auto;
+    margin: 25vh 0; /* Add vertical margin when screen width is less than 800px */
+  }
 `;
 
-// 標題樣式
+// Container for text content on the left side.
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px;
+
+  @media (max-width: 800px) {
+    align-items: center;
+    margin-right: 0;
+  }
+`;
+
+// Title styling with responsive scaling and word wrapping.
 const Title = styled.h1`
-    font-size: 48px;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 20px;
-    word-wrap: normal;
+  font-size: clamp(32px, 5vw, 48px); /* Dynamic scaling */
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+  word-wrap: break-word; /* Ensure text wraps properly on smaller screens */
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 `;
 
-// 文本介紹樣式
+// Description styling with dynamic text alignment for smaller screens.
 const Description = styled.p`
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: left;
-    max-width: 700px;
-    word-wrap: break-word;
-    margin-bottom: 20px;
+  font-size: clamp(14px, 2vw, 18px); /* Dynamic scaling */
+  line-height: 1.6;
+  text-align: left;
+  max-width: 700px;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 `;
 
-// 右側動畫預留區域
+// Placeholder for animations or images on the right side.
 const RightColumn = styled.div`
-    width: 300px;
-    height: 300px;
-    background-color: lightgray;
+  width: clamp(200px, 20vw, 300px); /* Keep aspect ratio while scaling */
+  height: clamp(200px, 20vw, 300px); /* Ensure the same width and height scaling */
+  background-color: lightgray;
+
+  @media (max-width: 800px) {
+    display: none; /* Hide the animation on screens smaller than 800px */
+  }
 `;
 
-// 接受 ReactNode 類型的 title 和 description
+// Props interface to accept title and description.
 interface EventIntroductionLayoutProps {
-    title: React.ReactNode;  // 支援 JSX 元素
-    description: string;
+  title: React.ReactNode;
+  description: string;
 }
 
 const EventIntroductionLayout: React.FC<EventIntroductionLayoutProps> = ({
-                                                                             title,
-                                                                             description,
+                                                                           title,
+                                                                           description,
                                                                          }) => {
-    return (
-        <SectionContainer>
-            <TextContainer>
-                <Title>{title}</Title>
-                <Description>{description}</Description>
-            </TextContainer>
-
-            {/* 右側預留動畫區域 */}
-            <RightColumn />
-        </SectionContainer>
-    );
+  return (
+    <SectionContainer>
+      <TextContainer>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </TextContainer>
+      <RightColumn />
+    </SectionContainer>
+  );
 };
 
 export default EventIntroductionLayout;

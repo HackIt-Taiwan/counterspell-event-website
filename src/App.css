@@ -1,3 +1,9 @@
+/*
+  Application Stylesheet
+  Defines global styles and component-specific styles for the Counterspell Event Client.
+  Ensures responsive design and consistent styling across all components.
+*/
+
 #root {
   max-width: 100vw;
   margin: 0;
@@ -12,9 +18,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }

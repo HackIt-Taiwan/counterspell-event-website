@@ -1,114 +1,148 @@
+/**
+ * TeamQualification Component
+ *
+ * This component displays the qualifications required to form a team for the Counterspell Taiwan event.
+ * It includes animated checkmarks that appear as the user scrolls to enhance user engagement.
+ * The layout is responsive to ensure optimal viewing on all screen sizes.
+ */
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import HandDrawnCheckmark from '../assets/hand-drawn-checkmark.svg'; // 導入手繪的 SVG
+import HandDrawnCheckmark from '../assets/hand-drawn-checkmark.svg';
 
-// 主容器樣式
 const SectionContainer = styled.div`
-    display: flex;
-    align-items: center;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    padding-left: 300px;
-    height: 100vh;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 50px;
+  height: 100vh;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 20px;
+  }
 `;
 
-// 左側標題容器
 const LeftContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 300px;
+  flex: 0 0 auto;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 50px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+  }
 `;
 
-// 標題樣式
 const Title = styled.h1`
-    font-size: 48px;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 20px;
+  font-size: clamp(36px, 8vw, 64px);
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
-// 右側容器
 const RightContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-`;
+  flex: 0 0 auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the container contents vertically */
 
-// 小字樣式
-const SmallText = styled.p`
-    font-size: 20px;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 20px;
-`;
+  @media (min-width: 769px) {
+    max-width: 500px;
+  }
 
-// 勾選框樣式
-const CheckboxContainer = styled.div`
-    display: flex;
+  @media (max-width: 768px) {
+    width: 100%;
     align-items: center;
-    margin-bottom: 10px;
-    padding-right: 30px;
+  }
 `;
 
-// 自定義的 SVG 勾勾樣式
+const SmallText = styled.p`
+  font-size: clamp(16px, 4vw, 20px);
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center; /* Center items vertically within the container */
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    width: 100%;
+  }
+`;
+
 const CheckmarkSVG = styled.img<{ checked: boolean }>`
-    width: 30px;
-    height: 30px;
-    opacity: ${(props) => (props.checked ? 1 : 0)};
-    transition: opacity 0.4s ease-in-out;
+  width: 30px;
+  height: 30px;
+  opacity: ${({ checked }) => (checked ? 1 : 0)};
+  transition: opacity 0.4s ease-in-out;
+  margin-right: 10px;
 `;
 
-// 項目文本
 const CheckboxLabel = styled.span`
-    font-size: 30px;
-    font-family: 'Arial', sans-serif;
-    padding-left: 10px;
+  font-size: clamp(18px, 5vw, 30px);
+  font-family: 'Arial', sans-serif;
+  line-height: 1.5;
+  vertical-align: middle; /* Ensures that the text aligns properly */
 `;
 
 const TeamQualification: React.FC = () => {
-    const [checkedItems, setCheckedItems] = useState([false, false]); // 用來控制勾選框的狀態
+  const [checkedItems, setCheckedItems] = useState([false, false]);
 
-    // 處理滾動事件來觸發勾選框動畫
-    useEffect(() => {
-        const handleScroll = () => {
-            const windowHeight = window.innerHeight;
-            const scrollPosition = window.scrollY;
-            const triggerHeight = windowHeight * 0.9; // 當滾動超過視口 90% 時觸發
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const scrollPosition = window.scrollY;
+      const triggerHeight = windowHeight * 0.9;
 
-            if (scrollPosition > triggerHeight) {
-                setCheckedItems([true, true]); // 可以控制多個項目按順序勾選
-            }
-        };
+      if (scrollPosition > triggerHeight) {
+        setCheckedItems([true, true]);
+      }
+    };
 
-        window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-    return (
-        <SectionContainer>
-            {/* 左側標題 */}
-            <LeftContentContainer>
-                <Title>組隊資格</Title>
-            </LeftContentContainer>
+  return (
+    <SectionContainer>
+      <LeftContentContainer>
+        <Title>組隊資格</Title>
+      </LeftContentContainer>
 
-            {/* 右側勾選框和文字 */}
-            <RightContentContainer>
-                <SmallText>要參加活動，你需要...</SmallText>
-                <CheckboxContainer>
-                    <CheckmarkSVG checked={checkedItems[0]} src={HandDrawnCheckmark} alt="Checkmark" />
-                    <CheckboxLabel>全國各級高中職學生</CheckboxLabel>
-                </CheckboxContainer>
-                <CheckboxContainer>
-                    <CheckmarkSVG checked={checkedItems[1]} src={HandDrawnCheckmark} alt="Checkmark" />
-                    <CheckboxLabel>每組 3 - 6 人</CheckboxLabel>
-                </CheckboxContainer>
-            </RightContentContainer>
-        </SectionContainer>
-    );
+      <RightContentContainer>
+        <SmallText>要參加活動，你需要...</SmallText>
+        <CheckboxContainer>
+          <CheckmarkSVG checked={checkedItems[0]} src={HandDrawnCheckmark} alt="Checkmark" />
+          <CheckboxLabel>全國各級高中職學生</CheckboxLabel>
+        </CheckboxContainer>
+        <CheckboxContainer>
+          <CheckmarkSVG checked={checkedItems[1]} src={HandDrawnCheckmark} alt="Checkmark" />
+          <CheckboxLabel>每組 3 - 6 人</CheckboxLabel>
+        </CheckboxContainer>
+      </RightContentContainer>
+    </SectionContainer>
+  );
 };
 
 export default TeamQualification;

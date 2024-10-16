@@ -1,4 +1,6 @@
 {
+  // TypeScript Configuration for Node.js
+  // Defines compiler options specific to Node.js environment.
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2023"],

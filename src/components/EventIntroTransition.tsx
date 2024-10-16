@@ -1,73 +1,91 @@
+/**
+ * EventIntroTransition Component
+ * Displays a transition section with animated text and an arrow image to guide user navigation.
+ */
+
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import ArrowImage from '../assets/arrow.svg';
 
-// 定義淡入效果
+// Fade-in animation for smooth appearance.
 const fadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
-// 容器，設定為橫向排列
+// Container for the transition section.
 const TransitionContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: left;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: left;
+  position: relative;
 `;
 
-// 文字容器，包含標題和子標題，使用垂直排列
+// Container for the text elements.
 const TextContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end; /* 將文字內容靠左對齊 */
-    margin-right: 50px; /* 調整與箭頭的距離 */
-    margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 50px;
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    margin-right: 0;
+  }
 `;
 
-// "活動介紹" 文字樣式
+// Title styling with dynamic scaling.
 const Title = styled.h1`
-    font-size: 90px;
-    animation: ${fadeIn} 1.5s ease-out;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 10px;
+  font-size: clamp(40px, 8vw, 90px); /* Minimum 40px, scales with screen width */
+  animation: ${fadeIn} 1.5s ease-out;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 5px;
+  }
 `;
 
-// 子標題樣式
+// Subtitle styling with dynamic scaling.
 const Subtitle = styled.h2`
-    font-size: 40px;
-    color: #666;
-    animation: ${fadeIn} 2s ease-out;
-    font-family: 'Arial', sans-serif;
+  font-size: clamp(20px, 5vw, 40px); /* Minimum 20px, scales with screen width */
+  color: #666;
+  animation: ${fadeIn} 2s ease-out;
+  font-family: 'Arial', sans-serif;
 `;
 
-// 圖片樣式，向下移動並拉長
+// Arrow image styling, hidden on small screens.
 const Arrow = styled.img`
-  width: 50px;
+  width: clamp(30px, 4vw, 50px); /* Minimum 30px, scales with screen width */
   height: auto;
-  margin-top: 90px;
+  margin-top: clamp(30px, 8vw, 90px); /* Adjusts top margin dynamically */
   transform: scaleY(1.5);
+
+  @media (max-width: 800px) {
+    display: none; /* Hide arrow on screens smaller than 800px */
+  }
 `;
 
 const EventIntroTransition: React.FC = () => {
-    return (
-        <TransitionContainer>
-            <TextContainer>
-                <Title>活動介紹</Title>
-                <Subtitle>關於Counterspell Taiwan</Subtitle>
-            </TextContainer>
-            <Arrow src={ArrowImage} alt="Arrow" />
-        </TransitionContainer>
-    );
+  return (
+    <TransitionContainer>
+      <TextContainer>
+        <Title>活動介紹</Title>
+        <Subtitle>About Counterspell Taiwan</Subtitle>
+      </TextContainer>
+      <Arrow src={ArrowImage} alt="Arrow" />
+    </TransitionContainer>
+  );
 };
 
 export default EventIntroTransition;
