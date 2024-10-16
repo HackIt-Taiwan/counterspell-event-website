@@ -15,7 +15,7 @@ const NavContainer = styled.nav`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px 40px;
+  padding: 10px 40px;
   background-color: rgba(255, 255, 255, 0.8);
   width: 100%;
   box-sizing: border-box;

@@ -21,7 +21,7 @@ const LogoContainer = styled.div<{ size: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px;
+  margin: 70px;
 
   @media (max-width: 768px) {
     width: calc(${(props) => props.size} * 0.75);

@@ -28,7 +28,7 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 20px;
+  margin: 0 20px;
 
   @media (max-width: 800px) {
     align-items: center;
