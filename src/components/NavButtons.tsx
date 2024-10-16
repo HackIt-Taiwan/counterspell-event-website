@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from "react-router-dom";
 
 const NavContainer = styled.nav`
     position: fixed;
@@ -41,6 +42,23 @@ const TextButton = styled.button`
     }
 `;
 
+const TextLink = styled(Link)`
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        color: #666;
+    }
+
+    &:active {
+        color: #000;
+    }
+`;
+
 const SolidButton = styled.button`
     background: none;
     border: 2px solid #ff7f50;
@@ -65,8 +83,9 @@ const SolidButton = styled.button`
 const NavButtons: React.FC = () => {
     return (
         <NavContainer>
+            <TextLink to="/">首頁</TextLink>
             <TextButton>最新消息</TextButton>
-            <TextButton>工作坊</TextButton>
+            <TextLink to="/workshop">工作坊</TextLink>
             <SolidButton>報名活動</SolidButton>
         </NavContainer>
     );
