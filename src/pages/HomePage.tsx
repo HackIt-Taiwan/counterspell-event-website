@@ -11,7 +11,6 @@ import TeamQualification from "../components/TeamQualification.tsx";
 import HorizontalScroll from "../components/HorizontalScroll.tsx";
 import SmoothScroll from "../components/SmoothScroll.tsx";
 import Mission from "../components/Mission.tsx";
-import FAQ from "../components/FAQ.tsx";
 import ContactInfo from "../components/ContactInfo.tsx";
 
 const HomePage: React.FC = () => {
@@ -33,7 +32,6 @@ const HomePage: React.FC = () => {
                 <HorizontalScroll />
                 <Mission />
                 {/* 如果有其他组件，可以继续添加 */}
-                <FAQ/>
                 <ContactInfo />
             </SmoothScroll>
         </>

@@ -34,8 +34,6 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 0;
-    padding-bottom: 30px;
 `;
 
 const ContactInfo: React.FC = () => {

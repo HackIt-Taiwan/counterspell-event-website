@@ -16,6 +16,7 @@ const MissionSectionContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
 `;
 
 // 活動宗旨標題，放置在頁面中央
