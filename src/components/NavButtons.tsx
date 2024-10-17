@@ -31,29 +31,6 @@ const NavContainer = styled.nav`
   }
 `;
 
-// Styled component for text buttons.
-const TextButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: var(--text-color);
-  cursor: pointer;
-  outline: none;
-  font-family: 'Arial', sans-serif;
-
-  &:hover {
-    color: var(--link-hover-color);
-  }
-
-  &:active {
-    color: var(--link-color);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
-`;
-
 // Styled component for text links using react-router-dom's Link.
 const TextLink = styled(Link)`
   background: none;
@@ -108,11 +85,6 @@ const SolidButton = styled.button`
 
 // NavButtons Component
 const NavButtons: React.FC = () => {
-  const handleNewsClick = () => {
-    // Future functionality: navigate to news section or external link.
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Placeholder action
-  };
-
   const handleRegisterClick = () => {
     // Future functionality: link to the registration form or external page.
     window.open('#', '_blank'); // Currently set to an invalid link.
@@ -121,7 +93,7 @@ const NavButtons: React.FC = () => {
   return (
     <NavContainer>
       <TextLink to="/">首頁</TextLink>
-      <TextButton onClick={handleNewsClick}>最新消息</TextButton>
+      <TextLink to="/LatestNews">最新消息</TextLink>
       <TextLink to="/workshop">工作坊</TextLink>
       <SolidButton onClick={handleRegisterClick}>報名活動</SolidButton>
     </NavContainer>

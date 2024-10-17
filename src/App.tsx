@@ -11,6 +11,8 @@ import HomePage from './pages/HomePage';
 import NavButtons from './components/NavButtons';
 import Workshop from './pages/Workshop';
 import ColorAdjuster from "./components/ColorAdjuster.tsx";
+import LatestNews from "./pages/LatestNews.tsx";
+import NewsDetailPage from "./components/NewsDetailPage.tsx";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -38,6 +40,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/workshop" element={<Workshop />} />
+        <Route path="/LatestNews" element={<LatestNews />} />
+        <Route path="/news/:id" element={<NewsDetailPage />} />
       </Routes>
     </Router>
   );
