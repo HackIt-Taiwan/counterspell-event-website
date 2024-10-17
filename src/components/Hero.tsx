@@ -1,7 +1,7 @@
 /*
   Hero Component
-  Displays the hero section with the main title and the HeroUFO component.
-  Updated to use CSS variables for colors.
+  Displays the hero section with the main title, subtitle, and the HeroUFO component.
+  Updated to include a subtitle and ensure responsiveness.
 */
 
 import React from 'react';
@@ -36,26 +36,21 @@ const HeroContainer = styled.div`
 const TitleContainer = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   font-family: 'Audiowide', sans-serif;
   top: -100px;
-  left: -20px;
 
   @media (max-width: 1000px) {
     top: -80px;
-    left: -10px;
   }
 
   @media (max-width: 800px) {
-    flex-direction: column;
     top: 0;
-    left: 0;
   }
 
   @media (max-width: 500px) {
-    flex-direction: column;
     top: 0;
-    left: 0;
   }
 `;
 
@@ -63,6 +58,25 @@ const Title = styled.h1`
   font-size: clamp(24px, 5vw, 72px);
   color: var(--text-color);
   text-align: center;
+`;
+
+const Subtitle = styled.h2`
+  font-size: clamp(16px, 2vw, 32px);
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 15px;
+
+  @media (max-width: 1000px) {
+    margin-top: 8px;
+  }
+
+  @media (max-width: 800px) {
+    margin-top: 6px;
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 4px;
+  }
 `;
 
 const UFOWrapper = styled.div`
@@ -86,6 +100,7 @@ const Hero: React.FC = () => {
     <HeroContainer>
       <TitleContainer>
         <Title>Counterspell Taiwan</Title>
+        <Subtitle>全台第一場由青少年為青少年舉辦的黑客松</Subtitle>
         <UFOWrapper>
           <HeroUFO />
         </UFOWrapper>
