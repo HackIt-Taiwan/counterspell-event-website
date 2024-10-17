@@ -1,24 +1,22 @@
-/**
- * Workshop Component
- *
- * This page provides information about the game development workshop offered by Counterspell Taiwan.
- * It includes the event logo, titles, a join button, event timings, and learning objectives.
- * The layout is designed using CSS Flexbox for a responsive and organized structure.
- */
+/*
+  Workshop Component
+  Provides information about the game development workshop offered by Counterspell Taiwan.
+  Updated to use CSS variables for colors and background.
+*/
 
-import React from "react";
-import styled from "styled-components";
-import JoinButton from "../components/JoinButton";
-import LearnBox from "../components/LearnBox.tsx";
+import React from 'react';
+import styled from 'styled-components';
+import JoinButton from '../components/JoinButton';
+import LearnBox from '../components/LearnBox';
 
 const WorkshopContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 2rem 2rem 2rem; /* Added 10px padding-top for navigation bar */
+  padding: 50px 2rem 2rem 2rem;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #121212;
+  background-color: var(--background-color-light);
 
   @media (max-width: 800px) {
     padding: 100px 1rem 1rem 1rem;
@@ -35,7 +33,7 @@ const Content = styled.div`
 
 const Title = styled.h1`
   font-size: 3rem;
-  color: white;
+  color: var(--text-color);
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 0.5rem;
@@ -48,7 +46,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.h2`
   font-size: 2rem;
-  color: white;
+  color: var(--text-color);
   text-align: center;
   margin-bottom: 2rem;
 
@@ -60,7 +58,7 @@ const SubTitle = styled.h2`
 
 const EventInfoBox = styled.div`
   text-align: center;
-  color: white;
+  color: var(--text-color);
   margin-top: 1rem;
   font-size: 1.5rem;
 

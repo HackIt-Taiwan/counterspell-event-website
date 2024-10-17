@@ -1,3 +1,9 @@
+/*
+  JoinButton Component
+  Provides a styled button for users to join or register for an event.
+  Updated to use CSS variables for colors.
+*/
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -17,21 +23,21 @@ const JoinButtonStyled = styled.button`
   font-size: 1.5rem;
   font-family: Arial, sans-serif;
   font-weight: 600;
-  color: #f0f0f0; /* Light text */
-  background-color: #ff5722; /* Vibrant orange button */
+  color: var(--text-color);
+  background-color: var(--link-color);
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #e64a19; /* Darker orange on hover */
-    transform: translateY(-5px); /* Move up on hover */
+    background-color: var(--link-hover-color);
+    transform: translateY(-5px);
   }
 
   &:active {
-    background-color: #d84315; /* Even darker orange on click */
-    transform: translateY(2px); /* Slightly move down on click */
+    background-color: #d84315; /* Adjust as needed */
+    transform: translateY(2px);
   }
 
   @media (max-width: 800px) {

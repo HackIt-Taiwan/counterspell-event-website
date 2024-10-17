@@ -1,43 +1,51 @@
+/*
+  Mission Component
+  Displays the mission statements with interactive planets.
+  Updated to use CSS variables for colors and background colors.
+*/
+
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // Define floating animation with different offsets and durations
 const float = (offset: number) => keyframes`
-    0% { transform: translateY(0); }
-    50% { transform: translateY(${offset}px); }
-    100% { transform: translateY(0); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(${offset}px); }
+  100% { transform: translateY(0); }
 `;
 
 // Container for the mission section
 const MissionSectionContainer = styled.div`
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color-dark);
 
-    /* Responsive styles for small screens */
-    @media (max-width: 900px) {
-        flex-direction: column;
-        align-items: center;
-        overflow-y: auto;
-        padding: 20px;
-    }
+  /* Responsive styles for small screens */
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px;
+  }
 `;
 
 // Title styled component
 const Title = styled.h1`
-    position: absolute;
-    font-size: 72px;
-    font-family: Arial, sans-serif;
-    text-align: center;
+  position: absolute;
+  font-size: 72px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: var(--text-color);
 
-    @media (max-width: 900px) {
-        position: static;
-        font-size: 36px;
-        margin-bottom: 20px;
-    }
+  @media (max-width: 900px) {
+    position: static;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
 `;
 
 // Planet styled component
@@ -48,44 +56,44 @@ const Planet = styled.div<{
   flipped: boolean;
   isCard: boolean;
 }>`
-    width: ${(props) => (props.isCard ? '100%' : `${150 * props.scale}px`)};
-    height: ${(props) => (props.isCard ? 'auto' : `${150 * props.scale}px`)};
-    background-color: ${(props) => (props.flipped ? '#f0c419' : 'gray')};
-    color: ${(props) => (props.flipped ? 'white' : 'transparent')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: ${(props) => (props.isCard ? '1em' : `${17 * props.scale}px`)};
-    font-family: Arial, sans-serif;
-    border-radius: ${(props) => (props.isCard ? '12px' : '50%')};
-    position: ${(props) => (props.isCard ? 'static' : 'absolute')};
-    padding: ${(props) => (props.isCard ? '20px' : `${12 * props.scale}px`)};
-    margin: ${(props) => (props.isCard ? '10px 0' : '0')};
-    box-shadow: ${(props) =>
+  width: ${(props) => (props.isCard ? '100%' : `${150 * props.scale}px`)};
+  height: ${(props) => (props.isCard ? 'auto' : `${150 * props.scale}px`)};
+  background-color: ${(props) =>
+  props.flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
+  color: ${(props) => (props.flipped ? 'var(--text-color)' : 'transparent')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${(props) => (props.isCard ? '1em' : `${17 * props.scale}px`)};
+  font-family: Arial, sans-serif;
+  border-radius: ${(props) => (props.isCard ? '12px' : '50%')};
+  position: ${(props) => (props.isCard ? 'static' : 'absolute')};
+  padding: ${(props) => (props.isCard ? '20px' : `${12 * props.scale}px`)};
+  margin: ${(props) => (props.isCard ? '10px 0' : '0')};
+  box-shadow: ${(props) =>
   props.isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
-    width: ${(props) => (props.isCard ? '90%' : `${150 * props.scale}px`)};
-    transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
+  transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
 
-    /* Floating animation for non-card layout */
-    animation: ${(props) =>
+  /* Floating animation for non-card layout */
+  animation: ${(props) =>
   !props.isCard ? float(props.floatOffset) : 'none'}
-        ${(props) => props.animationDuration} ease-in-out infinite;
+    ${(props) => props.animationDuration} ease-in-out infinite;
 
-    /* Hover and click effects */
-    &:hover {
-        transform: ${(props) =>
+  /* Hover and click effects */
+  &:hover {
+    transform: ${(props) =>
   props.isCard
     ? 'none'
     : props.flipped
       ? 'none'
       : 'scale(1.1)'};
-        box-shadow: ${(props) =>
+    box-shadow: ${(props) =>
   props.isCard
     ? '0 6px 12px rgba(0, 0, 0, 0.2)'
     : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
-        background-color: #f0c419;
-        color: white;
-    }
+    background-color: var(--link-color);
+    color: var(--text-color);
+  }
 `;
 
 // PlanetContainer styled component for non-card layout
@@ -100,7 +108,6 @@ const PlanetContainer = styled.div<{ xOffset: number; yOffset: number }>`
   }
 `;
 
-// CardContainer styled component for card layout
 const CardContainer = styled.div`
     width: 100%;
     max-width: 600px;
@@ -109,7 +116,6 @@ const CardContainer = styled.div`
     align-items: center;
 `;
 
-// Mission component
 const Mission: React.FC = () => {
   const [flippedPlanets, setFlippedPlanets] = useState<{ [key: string]: boolean }>({});
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(window.innerWidth < 900);

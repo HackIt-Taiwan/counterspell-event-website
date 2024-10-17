@@ -1,10 +1,13 @@
-// HorizontalScroll Component
-// Enhances responsiveness across various screen sizes and optimizes for touch devices by enabling horizontal scrolling.
+/*
+  HorizontalScroll Component
+  Enhances responsiveness across various screen sizes and optimizes for touch devices by enabling horizontal scrolling.
+  Updated to use CSS variables for colors and backgrounds.
+*/
 
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import ufo from '../assets/ufo.svg';
 import { SmoothScrollContext } from '../contexts/SmoothScrollContext';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // Styled components for the horizontal scroll layout.
 const HorizontalScrollContainer = styled.div`
@@ -14,6 +17,7 @@ const HorizontalScrollContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 50px 0;
+  background-color: var(--background-color-light);
 
   @media (max-width: 768px) {
     padding: 20px 0;
@@ -48,7 +52,7 @@ const ScrollboxCard = styled.div`
   position: relative;
   width: 65rem;
   height: 40rem;
-  background-color: #f7f7f7;
+  background-color: var(--button-background-light);
   border-radius: 5rem;
   margin-left: 3rem;
   flex-shrink: 0;
@@ -78,7 +82,7 @@ const ScrollboxCard = styled.div`
 const CardTitle = styled.h2`
   font-family: sans-serif;
   font-size: 3rem;
-  color: #171717;
+  color: var(--text-color);
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -91,7 +95,7 @@ const CardTitle = styled.h2`
 const CardContent = styled.p`
   font-family: sans-serif;
   font-size: 1.5rem;
-  color: #333333;
+  color: var(--text-color);
   text-align: left;
   margin-bottom: 1rem;
 
@@ -113,7 +117,6 @@ const TruckImage = styled.img<{ isTouchDevice: boolean }>`
   }
 `;
 
-// Sample card data.
 const cards = [
   {
     title: '報名資格是什麼？',

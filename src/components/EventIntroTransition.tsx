@@ -1,13 +1,13 @@
 /**
  * EventIntroTransition Component
  * Displays a transition section with animated text and an arrow image to guide user navigation.
+ * Updated to use CSS variables for text colors.
  */
 
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import ArrowImage from '../assets/arrow.svg';
 
-// Fade-in animation for smooth appearance.
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -19,7 +19,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// Container for the transition section.
 const TransitionContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -29,7 +28,6 @@ const TransitionContainer = styled.div`
   position: relative;
 `;
 
-// Container for the text elements.
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,35 +42,33 @@ const TextContainer = styled.div`
   }
 `;
 
-// Title styling with dynamic scaling.
 const Title = styled.h1`
-  font-size: clamp(40px, 8vw, 90px); /* Minimum 40px, scales with screen width */
+  font-size: clamp(40px, 8vw, 90px);
   animation: ${fadeIn} 1.5s ease-out;
   font-family: 'Arial', sans-serif;
   margin-bottom: 10px;
+  color: var(--text-color);
 
   @media (max-width: 768px) {
     margin-bottom: 5px;
   }
 `;
 
-// Subtitle styling with dynamic scaling.
 const Subtitle = styled.h2`
-  font-size: clamp(20px, 5vw, 40px); /* Minimum 20px, scales with screen width */
-  color: #666;
+  font-size: clamp(20px, 5vw, 40px);
+  color: var(--link-hover-color);
   animation: ${fadeIn} 2s ease-out;
   font-family: 'Arial', sans-serif;
 `;
 
-// Arrow image styling, hidden on small screens.
 const Arrow = styled.img`
-  width: clamp(30px, 4vw, 50px); /* Minimum 30px, scales with screen width */
+  width: clamp(30px, 4vw, 50px);
   height: auto;
-  margin-top: clamp(30px, 8vw, 90px); /* Adjusts top margin dynamically */
+  margin-top: clamp(30px, 8vw, 90px);
   transform: scaleY(1.5);
 
   @media (max-width: 800px) {
-    display: none; /* Hide arrow on screens smaller than 800px */
+    display: none;
   }
 `;
 

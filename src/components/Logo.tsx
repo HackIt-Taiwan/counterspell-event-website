@@ -1,5 +1,8 @@
-// Logo Component
-// Displays a circular logo image with error handling and responsive design.
+/*
+  Logo Component
+  Displays a circular logo image with error handling and responsive design.
+  Updated to use CSS variables for background colors.
+*/
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -17,7 +20,7 @@ const LogoContainer = styled.div<{ size: string }>`
   height: ${(props) => props.size};
   border-radius: 50%;
   overflow: hidden;
-  background-color: gray;
+  background-color: var(--background-color-light);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +40,13 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
+// Fallback component when image fails to load.
+const Fallback = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: var(--button-background-light);
+`;
+
 // Logo Component
 const Logo: React.FC<LogoProps> = ({ src, alt = 'Logo', size = '100px' }) => {
   const [imageError, setImageError] = useState(false);
@@ -51,12 +61,5 @@ const Logo: React.FC<LogoProps> = ({ src, alt = 'Logo', size = '100px' }) => {
     </LogoContainer>
   );
 };
-
-// Fallback component when image fails to load.
-const Fallback = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: #ccc;
-`;
 
 export default Logo;

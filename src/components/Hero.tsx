@@ -1,3 +1,9 @@
+/*
+  Hero Component
+  Displays the hero section with the main title and the HeroUFO component.
+  Updated to use CSS variables for colors.
+*/
+
 import React from 'react';
 import styled from 'styled-components';
 import HeroUFO from './HeroUFO';
@@ -55,7 +61,7 @@ const TitleContainer = styled.div`
 
 const Title = styled.h1`
   font-size: clamp(24px, 5vw, 72px);
-  color: white;
+  color: var(--text-color);
   text-align: center;
 `;
 

@@ -1,5 +1,8 @@
-// FAQ Component
-// Renders a list of frequently asked questions with expandable answers for user interaction.
+/*
+  FAQ Component
+  Renders a list of frequently asked questions with expandable answers for user interaction.
+  Updated to use CSS variables for colors and background.
+*/
 
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
@@ -9,7 +12,7 @@ const FAQSection = styled.section`
   width: 100%;
   margin-top: 20px;
   padding: 30px 5%;
-  background-color: #ffffff;
+  background-color: var(--background-color-light);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -34,7 +37,7 @@ const TitleContainer = styled.div`
 const Title = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #333;
+  color: var(--text-color);
   font-family: 'Arial', sans-serif;
 
   @media (max-width: 768px) {
@@ -50,7 +53,7 @@ const FAQItemContainer = styled.div`
 
 // Styled component for individual FAQ items.
 const FAQItem = styled.div`
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--button-background-light);
   margin-bottom: 15px;
 `;
 
@@ -64,7 +67,7 @@ const QuestionRow = styled.div`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #f7f7f7;
+    background-color: var(--background-color-dark);
   }
 `;
 
@@ -72,7 +75,7 @@ const QuestionRow = styled.div`
 const Question = styled.div`
   font-size: 1.2rem;
   font-weight: 600;
-  color: #444;
+  color: var(--text-color);
   font-family: 'Arial', sans-serif;
   line-height: 1.4;
 `;
@@ -81,7 +84,7 @@ const Question = styled.div`
 const PlusIcon = styled.div<{ isOpen: boolean }>`
   font-size: 1.5rem;
   transform: ${({ isOpen }) => (isOpen ? 'rotate(45deg)' : 'rotate(0)')};
-  color: #666;
+  color: var(--link-color);
   transition: transform 0.3s ease;
 `;
 
@@ -91,7 +94,7 @@ const Answer = styled.div<{ height: string }>`
   overflow: hidden;
   font-size: 1rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--text-color);
   font-family: 'Arial', sans-serif;
   transition: height 0.3s ease;
 `;
@@ -103,7 +106,6 @@ interface FAQItemProps {
   onClick: () => void;
 }
 
-// Component for individual FAQ items.
 const FAQItemComponent: React.FC<FAQItemProps> = ({ question, answer, isOpen, onClick }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<string>('0px');

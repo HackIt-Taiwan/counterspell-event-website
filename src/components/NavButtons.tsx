@@ -1,6 +1,7 @@
 /**
  * NavButtons Component
  * Renders the navigation bar with links and buttons, ensuring responsiveness and accessibility.
+ * Updated to use CSS variables for colors and background.
  */
 
 import React from 'react';
@@ -16,7 +17,7 @@ const NavContainer = styled.nav`
   justify-content: flex-end;
   align-items: center;
   padding: 10px 40px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--background-color-light);
   width: 100%;
   box-sizing: border-box;
   gap: 20px;
@@ -35,17 +36,17 @@ const TextButton = styled.button`
   background: none;
   border: none;
   font-size: 18px;
-  color: #333;
+  color: var(--text-color);
   cursor: pointer;
   outline: none;
   font-family: 'Arial', sans-serif;
 
   &:hover {
-    color: #666;
+    color: var(--link-hover-color);
   }
 
   &:active {
-    color: #000;
+    color: var(--link-color);
   }
 
   @media (max-width: 768px) {
@@ -58,17 +59,17 @@ const TextLink = styled(Link)`
   background: none;
   border: none;
   font-size: 18px;
-  color: #333;
+  color: var(--text-color);
   cursor: pointer;
   text-decoration: none;
   font-family: 'Arial', sans-serif;
 
   &:hover {
-    color: #666;
+    color: var(--link-hover-color);
   }
 
   &:active {
-    color: #000;
+    color: var(--link-color);
   }
 
   @media (max-width: 768px) {
@@ -78,9 +79,9 @@ const TextLink = styled(Link)`
 
 // Styled component for solid buttons.
 const SolidButton = styled.button`
-  background-color: #ff7f50; /* Coral color */
+  background-color: var(--link-color);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 10px 20px;
   font-size: 18px;
   border-radius: 25px;
@@ -90,12 +91,12 @@ const SolidButton = styled.button`
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #e06b3b; /* Darker coral on hover */
+    background-color: var(--link-hover-color);
     transform: translateY(-3px);
   }
 
   &:active {
-    background-color: #c55a2d; /* Even darker coral on click */
+    background-color: #c55a2d; /* Adjust as needed */
     transform: translateY(1px);
   }
 

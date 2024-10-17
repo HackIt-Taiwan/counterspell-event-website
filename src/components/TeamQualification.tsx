@@ -1,10 +1,8 @@
-/**
- * TeamQualification Component
- *
- * This component displays the qualifications required to form a team for the Counterspell Taiwan event.
- * It includes animated checkmarks that appear as the user scrolls to enhance user engagement.
- * The layout is responsive to ensure optimal viewing on all screen sizes.
- */
+/*
+  TeamQualification Component
+  Displays qualifications required to form a team, with animated checkmarks.
+  Updated to use CSS variables for colors and background.
+*/
 
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -17,6 +15,7 @@ const SectionContainer = styled.div`
   padding: 50px;
   height: 100vh;
   box-sizing: border-box;
+  background-color: var(--background-color-light);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -43,6 +42,7 @@ const Title = styled.h1`
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
   text-align: left;
+  color: var(--text-color);
 
   @media (max-width: 768px) {
     text-align: center;
@@ -54,7 +54,7 @@ const RightContentContainer = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center the container contents vertically */
+  justify-content: center;
 
   @media (min-width: 769px) {
     max-width: 500px;
@@ -71,6 +71,7 @@ const SmallText = styled.p`
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
   text-align: left;
+  color: var(--text-color);
 
   @media (max-width: 768px) {
     text-align: center;
@@ -79,7 +80,7 @@ const SmallText = styled.p`
 
 const CheckboxContainer = styled.div`
   display: flex;
-  align-items: center; /* Center items vertically within the container */
+  align-items: center;
   margin-bottom: 10px;
 
   @media (max-width: 768px) {
@@ -100,7 +101,8 @@ const CheckboxLabel = styled.span`
   font-size: clamp(18px, 5vw, 30px);
   font-family: 'Arial', sans-serif;
   line-height: 1.5;
-  vertical-align: middle; /* Ensures that the text aligns properly */
+  vertical-align: middle;
+  color: var(--text-color);
 `;
 
 const TeamQualification: React.FC = () => {

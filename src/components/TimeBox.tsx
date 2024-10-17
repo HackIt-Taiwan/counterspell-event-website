@@ -1,3 +1,9 @@
+/*
+  TimeBox Component
+  Displays event time and location details in a styled box.
+  Updated to use CSS variables for colors and background.
+*/
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -11,8 +17,8 @@ const TimeBoxContainer = styled.div`
   padding: 2vw;
   min-width: 20vw;
   min-height: 60vh;
-  background-color: #1e1e1e; /* Dark background */
-  color: #f0f0f0; /* Light text */
+  background-color: var(--background-color-dark);
+  color: var(--text-color);
   border-radius: 12px;
   position: absolute;
   left: 2vw;
@@ -23,7 +29,7 @@ const TimeBoxContainer = styled.div`
 
   &:hover {
     transform: translateY(-60%); /* Slight hover effect */
-    background-color: #2a2a2a; /* Slightly lighter on hover */
+    background-color: var(--button-background-dark);
   }
 
   @media (max-width: 768px) {
@@ -41,12 +47,14 @@ const TimeItem = styled.div`
     font-size: 18px;
     font-weight: 600;
     text-align: left;
+    color: var(--text-color);
   }
 
   p {
     margin: 0;
     font-size: 16px;
     font-weight: 300;
+    color: var(--text-color);
   }
 `;
 

@@ -1,7 +1,7 @@
 /**
  * EventTime Component
  * Displays event information such as date, time, and location in a responsive layout.
- * For small screens (below 700px), it lists event details in text format, while on larger screens it displays animations.
+ * Updated to use CSS variables for text and background colors.
  */
 
 import React from 'react';
@@ -15,6 +15,7 @@ const LeftContainer = styled.div`
   justify-content: center;
   font-size: clamp(36px, 8vw, 64px); /* Increased font size */
   font-family: 'Arial', sans-serif;
+  color: var(--text-color);
 `;
 
 // Styled component for the right container reserved for animations or additional content.
@@ -34,6 +35,7 @@ const Container = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+  background-color: var(--background-color-light);
 
   @media (max-width: 700px) {
     flex-direction: column;
@@ -48,6 +50,7 @@ const Title = styled.h1`
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
   word-wrap: normal;
+  color: var(--text-color);
 
   @media (max-width: 700px) {
     text-align: center;
@@ -58,6 +61,7 @@ const Title = styled.h1`
 const SmallScreenInfo = styled.div`
   padding: 20px;
   text-align: center;
+  color: var(--text-color);
 
   /* Add margin to prevent content from sticking together */
   margin-bottom: 25vh;
@@ -74,7 +78,7 @@ const SmallScreenInfo = styled.div`
   small {
     display: block;
     font-size: clamp(12px, 1vw, 22px); /* Adjust font size for the small note */
-    color: #666;
+    color: var(--link-hover-color);
     margin-top: 15px;
   }
 `;

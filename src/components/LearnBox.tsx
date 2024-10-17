@@ -1,13 +1,24 @@
+/*
+  LearnBox Component
+  Displays a list of skills or topics that users can learn.
+  Updated to use CSS variables for colors.
+*/
+
 import React from 'react';
 import styled from 'styled-components';
 
 const darkenColor = (color: string, amount: number): string => {
-  const darkenHex = (hex: string): string => {
-    const num = Math.max(0, Math.min(255, parseInt(hex, 16) - Math.floor(255 * amount)));
-    return num.toString(16).padStart(2, '0');
-  };
-  const [r, g, b] = color.match(/\w\w/g)!;
-  return `#${darkenHex(r)}${darkenHex(g)}${darkenHex(b)}`;
+  const hex = color.replace('#', '');
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+
+  const darken = (colorValue: number) =>
+    Math.max(0, Math.min(255, colorValue - Math.floor(255 * amount)))
+      .toString(16)
+      .padStart(2, '0');
+
+  return `#${darken(r)}${darken(g)}${darken(b)}`;
 };
 
 const LearnBoxContainer = styled.div`
@@ -17,7 +28,7 @@ const LearnBoxContainer = styled.div`
   padding: 2vw;
   min-height: 5vh;
   max-height: 15vh;
-  background-color: #1e1e1e;
+  background-color: var(--background-color-dark);
   width: 100%;
   box-sizing: border-box;
   gap: 20px;
@@ -33,7 +44,7 @@ const LearnTitle = styled.div`
   text-align: center;
   font-family: Arial, sans-serif;
   font-weight: 600;
-  color: #f0f0f0; /* Light text */
+  color: var(--text-color);
 
   @media (max-width: 800px) {
     display: none;
@@ -48,7 +59,7 @@ const LearnItem = styled.div<LearnItemProps>`
   flex: 1;
   padding: 10px 0;
   min-height: 7vh;
-  background-color: ${(props) => props.color || '#4caf50'};
+  background-color: ${(props) => props.color || 'var(--link-color)'};
   font-size: 1.5vw;
   font-family: Arial, sans-serif;
   border-radius: 10px;
