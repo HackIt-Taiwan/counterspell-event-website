@@ -84,14 +84,15 @@ const NoNewsMessage = styled.div`
   text-align: center;
 `;
 
+interface NewsItem {
+  id: number;
+  date: string;
+  title: string;
+  image?: string; // image 是可選的
+}
+
 const LatestNews: React.FC = () => {
-  // Simulated news list. Format:
-  // Each item in the array is an object with the following fields:
-  // - id: Unique identifier for the news (number)
-  // - date: Date of the news item (string, e.g., 'YYYY-MM-DD')
-  // - title: The title of the news (string)
-  // - image: Optional image URL for the news (string, can be empty if no image)
-  const newsList = [
+  const newsList: NewsItem[] = [
   ];
 
   return (
