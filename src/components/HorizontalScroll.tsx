@@ -200,7 +200,8 @@ const HorizontalScroll: React.FC = () => {
     const rect = scrollbox.getBoundingClientRect();
 
     // Calculate the start and end positions relative to the viewport.
-    const start = rect.top;
+    const buffer = 80;
+    const start = rect.top - buffer;
     const end = rect.bottom - window.innerHeight;
 
     // If the scrollbox is within the viewport.
