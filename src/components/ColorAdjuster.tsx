@@ -31,7 +31,7 @@ const EditorButton = styled.button`
 `;
 
 // 編輯面板樣式
-const EditorPanel = styled.div<{ isOpen: boolean }>`
+const EditorPanel = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 60px;
   left: 0;
@@ -42,7 +42,7 @@ const EditorPanel = styled.div<{ isOpen: boolean }>`
   max-height: 80vh;
   overflow-y: auto;
   padding: 20px;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px); /* 模糊背景，增強辨識度 */
 `;
@@ -270,7 +270,7 @@ const ColorEditor: React.FC = () => {
       <EditorButton onClick={toggleOpen}>
         🎨
       </EditorButton>
-      <EditorPanel isOpen={isOpen}>
+      <EditorPanel $isOpen={isOpen}>
         <Section>
           <Label>選擇配色方案</Label>
           <Dropdown

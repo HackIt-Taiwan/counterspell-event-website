@@ -26,17 +26,17 @@ const HorizontalScrollContainer = styled.div`
   }
 `;
 
-const Scrollbox = styled.div<{ isTouchDevice: boolean }>`
+const Scrollbox = styled.div<{ $isTouchDevice: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  overflow: ${({ isTouchDevice }) => (isTouchDevice ? 'auto' : 'hidden')};
+  overflow: ${({ $isTouchDevice }) => ($isTouchDevice ? 'auto' : 'hidden')};
   position: relative;
-  scroll-snap-type: ${({ isTouchDevice }) => (isTouchDevice ? 'x mandatory' : 'none')};
+  scroll-snap-type: ${({ $isTouchDevice }) => ($isTouchDevice ? 'x mandatory' : 'none')};
 
   /* Adjust container height for small screens and touch devices */
-  height: ${({ isTouchDevice }) => (isTouchDevice ? 'auto' : '100vh')};
+  height: ${({ $isTouchDevice }) => ($isTouchDevice ? 'auto' : '100vh')};
 
   @media (max-width: 768px) {
     height: auto;
@@ -105,15 +105,15 @@ const CardContent = styled.p`
   }
 `;
 
-const TruckImage = styled.img<{ isTouchDevice: boolean }>`
+const TruckImage = styled.img<{ $isTouchDevice: boolean }>`
   position: absolute;
   bottom: 0;
-  height: ${({ isTouchDevice }) => (isTouchDevice ? '0' : '50rem')};
+  height: ${({ $isTouchDevice }) => ($isTouchDevice ? '0' : '50rem')};
   top: 100px;
   z-index: 1;
 
   @media (max-width: 768px) {
-    height: ${({ isTouchDevice }) => (isTouchDevice ? '0' : '10rem')};
+    height: ${({ $isTouchDevice }) => ($isTouchDevice ? '0' : '10rem')};
     top: 50px;
   }
 `;
@@ -231,7 +231,7 @@ const HorizontalScroll: React.FC = () => {
   return (
     <HorizontalScrollContainer>
       {/* Scrollbox Section */}
-      <Scrollbox ref={scrollboxRef} isTouchDevice={isTouchDevice}>
+      <Scrollbox ref={scrollboxRef} $isTouchDevice={isTouchDevice}>
         <ScrollboxContainer ref={scrollboxContainerRef}>
           {cards.map((card, index) => (
             <ScrollboxCard
@@ -253,7 +253,7 @@ const HorizontalScroll: React.FC = () => {
                     if (el) truckRefs.current[index] = el;
                   }}
                   alt="UFO"
-                  isTouchDevice={isTouchDevice}
+                  $isTouchDevice={isTouchDevice}
                 />
               )}
             </ScrollboxCard>

@@ -37,44 +37,44 @@ const MissionSectionContainer = styled.div`
 // Planet styled component
 const Planet = styled.div<{
   scale: number;
-  floatOffset: number;
-  animationDuration: string;
-  flipped: boolean;
-  isCard: boolean;
+  $floatOffset: number;
+  $animationduration: string;
+  $flipped: boolean;
+  $iscard: boolean;
 }>`
-  width: ${(props) => (props.isCard ? '100%' : `${150 * props.scale}px`)};
-  height: ${(props) => (props.isCard ? 'auto' : `${150 * props.scale}px`)};
+  width: ${(props) => (props.$iscard ? '100%' : `${150 * props.scale}px`)};
+  height: ${(props) => (props.$iscard ? 'auto' : `${150 * props.scale}px`)};
   background-color: ${(props) =>
-    props.flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
-  color: ${(props) => (props.flipped ? 'var(--text-color)' : 'transparent')};
+    props.$flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
+  color: ${(props) => (props.$flipped ? 'var(--text-color)' : 'transparent')};
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${(props) => (props.isCard ? '1em' : `${17 * props.scale}px`)};
+  font-size: ${(props) => (props.$iscard ? '1em' : `${17 * props.scale}px`)};
   font-family: Arial, sans-serif;
-  border-radius: ${(props) => (props.isCard ? '12px' : '50%')};
-  position: ${(props) => (props.isCard ? 'static' : 'absolute')};
-  padding: ${(props) => (props.isCard ? '20px' : `${12 * props.scale}px`)};
-  margin: ${(props) => (props.isCard ? '10px 0' : '0')};
+  border-radius: ${(props) => (props.$iscard ? '12px' : '50%')};
+  position: ${(props) => (props.$iscard ? 'static' : 'absolute')};
+  padding: ${(props) => (props.$iscard ? '20px' : `${12 * props.scale}px`)};
+  margin: ${(props) => (props.$iscard ? '10px 0' : '0')};
   box-shadow: ${(props) =>
-    props.isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
+    props.$iscard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
   transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
 
   /* Floating animation for non-card layout */
   animation: ${(props) =>
-    !props.isCard ? float(props.floatOffset) : 'none'}
-  ${(props) => props.animationDuration} ease-in-out infinite;
+    !props.$iscard ? float(props.$floatOffset) : 'none'}
+  ${(props) => props.$animationduration} ease-in-out infinite;
 
   /* Hover and click effects */
   &:hover {
     transform: ${(props) =>
-      props.isCard
+      props.$iscard
         ? 'none'
-        : props.flipped
+        : props.$flipped
           ? 'none'
           : 'scale(1.1)'};
     box-shadow: ${(props) =>
-      props.isCard
+      props.$iscard
         ? '0 6px 12px rgba(0, 0, 0, 0.2)'
         : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
     background-color: var(--link-color);
@@ -136,7 +136,7 @@ const Mission: React.FC = () => {
       yOffset: 20,
       scale: 0.9,
       floatOffset: 10,
-      animationDuration: '5s',
+      $animationduration: '5s',
     },
     {
       key: '宗旨 B',
@@ -145,7 +145,7 @@ const Mission: React.FC = () => {
       yOffset: 50,
       scale: 1.7,
       floatOffset: 15,
-      animationDuration: '7s',
+      $animationduration: '7s',
     },
     {
       key: '宗旨 C',
@@ -154,7 +154,7 @@ const Mission: React.FC = () => {
       yOffset: 10,
       scale: 1,
       floatOffset: 8,
-      animationDuration: '6s',
+      $animationduration: '6s',
     },
     {
       key: '宗旨 D',
@@ -163,7 +163,7 @@ const Mission: React.FC = () => {
       yOffset: 40,
       scale: 2,
       floatOffset: 12,
-      animationDuration: '8s',
+      $animationduration: '8s',
     },
   ];
 
@@ -179,10 +179,10 @@ const Mission: React.FC = () => {
             <Planet
               key={mission.key}
               scale={mission.scale}
-              floatOffset={mission.floatOffset}
-              animationDuration={mission.animationDuration}
-              flipped={flippedPlanets[mission.key] || false}
-              isCard={true}
+              $floatOffset={mission.floatOffset}
+              $animationduration={mission.$animationduration}
+              $flipped={flippedPlanets[mission.key] || false}
+              $iscard={true}
               onClick={() => handleFlip(mission.key)}
             >
               {flippedPlanets[mission.key]
@@ -201,10 +201,10 @@ const Mission: React.FC = () => {
           >
             <Planet
               scale={mission.scale}
-              floatOffset={mission.floatOffset}
-              animationDuration={mission.animationDuration}
-              flipped={flippedPlanets[mission.key] || false}
-              isCard={false}
+              $floatOffset={mission.floatOffset}
+              $animationduration={mission.$animationduration}
+              $flipped={flippedPlanets[mission.key] || false}
+              $iscard={false}
               onClick={() => handleFlip(mission.key)}
               onMouseEnter={() => handleFlip(mission.key)}
             >
