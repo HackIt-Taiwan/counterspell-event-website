@@ -23,10 +23,11 @@ import ContactInfo from "../components/ContactInfo";
 import Carousel from "../components/Carousel.tsx";
 
 const bonusCards = [
-  { id: '1', title: '獎金 1', content: '這是一個驚喜獎金！' },
-  { id: '2', title: '獎金 2', content: '這是第二個獎金卡片！' },
-  { id: '3', title: '獎金 3', content: '第三個獎金卡片，祝你好運！' },
-  { id: '4', title: '獎金 3', content: '第三個獎金卡片，祝你好運！' },
+  { id: 1, amount: "10000", awardName: "金牌", peopleCount: 1 },
+  { id: 2, amount: "6000", awardName: "銀牌", peopleCount: 2 },
+  { id: 3, amount: "3000", awardName: "銅牌", peopleCount: 3 },
+  { id: 4, amount: "2000", awardName: "GenAI特別獎", peopleCount: 3 },
+  { id: 5, amount: "2000", awardName: "佳作", peopleCount: 6 },
 ];
 
 const HomePage: React.FC = () => {

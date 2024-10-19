@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Card {
-  title: string;
-  content: string;
+  id: number;
+  amount: string;
+  awardName: string;
+  peopleCount: number;
 }
 
 interface CarouselProps {
@@ -31,28 +33,43 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
     return 'hidden';
   };
 
+  // 動態分配背景顏色
+  const getBackgroundColor = (index: number) => {
+    const colors = ['#e0f7fa', '#ffe0b2', '#d1c4e9', '#b3e5fc', '#c8e6c9', '#ffccbc'];
+    return colors[index % colors.length];
+  };
+
   return (
-    <CarouselContainer>
-      <ArrowButton position="left" onClick={handlePrev}>
-        &lt;
-      </ArrowButton>
-      <CardsContainer>
-        {cards.map((card, index) => {
-          const position = getCardPosition(index);
-          return (
-            <CardWrapper key={index} position={position}>
-              <Card>
-                <CardTitle>{card.title}</CardTitle>
-                <CardContent>{card.content}</CardContent>
-              </Card>
-            </CardWrapper>
-          );
-        })}
-      </CardsContainer>
-      <ArrowButton position="right" onClick={handleNext}>
-        &gt;
-      </ArrowButton>
-    </CarouselContainer>
+    <CarouselWrapper>
+      <Title>贏取豐厚獎金! 快來看看您能獲得什麼！</Title>
+      <CarouselContainer>
+        <ArrowButton position="left" onClick={handlePrev}>
+          &lt;
+        </ArrowButton>
+        <CardsContainer>
+          {cards.map((card, index) => {
+            const position = getCardPosition(index);
+            const backgroundColor = getBackgroundColor(index);
+            return (
+              <CardWrapper key={card.id} position={position}>
+                <Card style={{ backgroundColor }}>
+                  <CardHeader>
+                    <CardAmount>＄{card.amount}</CardAmount>
+                    <CardAwardName>{card.awardName}</CardAwardName>
+                  </CardHeader>
+                  <CardDetails>
+                    <CardPeopleCount>{card.peopleCount} 組</CardPeopleCount>
+                  </CardDetails>
+                </Card>
+              </CardWrapper>
+            );
+          })}
+        </CardsContainer>
+        <ArrowButton position="right" onClick={handleNext}>
+          &gt;
+        </ArrowButton>
+      </CarouselContainer>
+    </CarouselWrapper>
   );
 };
 
@@ -60,25 +77,25 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
 const CardWrapper = styled.div<{ position: string }>`
   position: absolute;
   transition: all 0.5s ease;
-  left: 50%; /* 確保卡片在容器中間起始 */
-  transform: translateX(-50%); /* 調整卡片使其居中 */
+  left: 50%;
+  transform: translateX(-50%);
   ${(props) => {
     switch (props.position) {
       case 'center':
         return `
-          transform: translateX(-50%) scale(1);
+          transform: translateX(-50%) scale(1.15);
           opacity: 1;
           z-index: 3;
         `;
       case 'left':
         return `
-          transform: translateX(calc(-50% - 220px)) scale(0.9);
+          transform: translateX(calc(-50% - 300px)) scale(0.9);
           opacity: 0.8;
           z-index: 2;
         `;
       case 'right':
         return `
-          transform: translateX(calc(-50% + 220px)) scale(0.9);
+          transform: translateX(calc(-50% + 300px)) scale(0.9);
           opacity: 0.8;
           z-index: 2;
         `;
@@ -94,12 +111,26 @@ const CardWrapper = styled.div<{ position: string }>`
 `;
 
 // Styled Components
+const CarouselWrapper = styled.div`
+  text-align: left; /* 將標題向左對齊 */
+  padding: 20px;
+  min-width: 100vw;
+  margin-left: 1vw;
+`;
+
+const Title = styled.h1`
+  font-size: 3.5rem; /* 將標題放大 */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20vh;
+`;
+
 const CarouselContainer = styled.div`
   position: relative;
-  width: 600px;
-  height: 400px;
+  width: 1000px; /* 增加 Carousel 的大小 */
+  height: 600px; /* 增加高度 */
   margin: auto;
-  overflow: visible; /* 確保卡片不會被容器切掉 */
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,25 +143,44 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 300px;
-  height: 350px;
+  width: 400px; /* 增加卡片的寬度 */
+  height: 500px; /* 增加卡片的高度 */
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  background-color: var(--card-bg-color, #fff);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   transition: transform 0.5s, opacity 0.5s;
 `;
 
-const CardTitle = styled.h3`
-  margin: 0 0 10px;
+const CardHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 20px;
 `;
 
-const CardContent = styled.p`
+const CardAmount = styled.h2`
+  font-size: 4.5rem; /* 調整金額字體大小，讓其在增大卡片後仍突出 */
+  font-weight: bold;
   margin: 0;
+`;
+
+const CardAwardName = styled.h3`
+  font-size: 3.5rem; /* 調整獎項名稱字體大小，讓其在增大卡片後更加清晰 */
+  margin-top: 10px;
+  margin-left: 1vw;
+`;
+
+const CardDetails = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+`;
+
+const CardPeopleCount = styled.span`
+  font-size: 1.5rem;
 `;
 
 const ArrowButton = styled.button<{ position: string }>`
@@ -148,12 +198,12 @@ const ArrowButton = styled.button<{ position: string }>`
     background: rgba(0, 0, 0, 0.5);
   }
   ${(props) =>
-    props.position === 'left'
-      ? `
-    left: -50px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
+  props.position === 'left'
+    ? `
+    left: -70px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
   `
-      : `
-    right: -50px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
+    : `
+    right: -70px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
   `}
 `;
 
