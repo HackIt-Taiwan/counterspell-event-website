@@ -7,6 +7,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ContainerTitle } from './common/StyledComponents.tsx'
+
 const SectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -33,18 +35,6 @@ const TextContainer = styled.div`
   @media (max-width: 800px) {
     align-items: center;
     margin-right: 0;
-  }
-`;
-
-const Title = styled.h1`
-  font-size: clamp(32px, 5vw, 48px);
-  font-family: 'Arial', sans-serif;
-  margin-bottom: 20px;
-  word-wrap: break-word;
-  color: var(--text-color);
-
-  @media (max-width: 800px) {
-    text-align: center;
   }
 `;
 
@@ -84,7 +74,7 @@ const EventIntroductionLayout: React.FC<EventIntroductionLayoutProps> = ({
   return (
     <SectionContainer>
       <TextContainer>
-        <Title>{title}</Title>
+        <ContainerTitle>{title}</ContainerTitle>
         <Description>{description}</Description>
       </TextContainer>
       <RightColumn />

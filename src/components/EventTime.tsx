@@ -6,6 +6,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import {ContainerTitle} from "./common/StyledComponents.tsx";
 
 // Styled component for the left container displaying event information.
 const LeftContainer = styled.div`
@@ -44,19 +45,6 @@ const Container = styled.div`
   }
 `;
 
-// Styled component for the event title.
-const Title = styled.h1`
-  font-size: clamp(36px, 8vw, 64px); /* Increased font size for event title */
-  font-family: 'Arial', sans-serif;
-  margin-bottom: 20px;
-  word-wrap: normal;
-  color: var(--text-color);
-
-  @media (max-width: 700px) {
-    text-align: center;
-  }
-`;
-
 // Styled component for small-screen text information.
 const SmallScreenInfo = styled.div`
   padding: 20px;
@@ -90,7 +78,7 @@ const EventTime: React.FC = () => {
     <Container>
       {/* Left Side - Event Information */}
       <LeftContainer>
-        <Title>活動資訊</Title>
+        <ContainerTitle>活動資訊</ContainerTitle>
       </LeftContainer>
 
       {/* Right Side - Reserved for animations or additional content */}

@@ -19,6 +19,7 @@ const UFOContainer = styled.div<{ height: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 50vh;
 `;
 
 // Styled component for the UFO image

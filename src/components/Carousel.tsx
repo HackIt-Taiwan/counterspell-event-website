@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ContainerTitle } from "./common/StyledComponents.tsx";
 
 interface Card {
   id: number;
@@ -41,7 +42,7 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
 
   return (
     <CarouselWrapper>
-      <Title>贏取豐厚獎金! 快來看看您能獲得什麼！</Title>
+      <ContainerTitle>贏取豐厚獎金! 快來看看您能獲得什麼！</ContainerTitle>
       <CarouselContainer>
         <ArrowButton position="left" onClick={handlePrev}>
           &lt;
@@ -112,25 +113,16 @@ const CardWrapper = styled.div<{ position: string }>`
 
 // Styled Components
 const CarouselWrapper = styled.div`
-  text-align: left; /* 將標題向左對齊 */
+  text-align: left;
   padding: 20px;
   min-width: 100vw;
   margin-left: 1vw;
 `;
 
-const Title = styled.h1`
-  font-size: 3.5rem; /* 將標題放大 */
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20vh;
-`;
-
 const CarouselContainer = styled.div`
-  position: relative;
-  width: 1000px; /* 增加 Carousel 的大小 */
-  height: 600px; /* 增加高度 */
-  margin: auto;
-  overflow: visible;
+  width: 65%;
+  height: 600px;
+  margin: 20vh auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,6 +132,7 @@ const CardsContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  flex: 1; /* 讓卡片容器佔據剩餘空間 */
 `;
 
 const Card = styled.div`
@@ -184,26 +177,29 @@ const CardPeopleCount = styled.span`
 `;
 
 const ArrowButton = styled.button<{ position: string }>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  flex: 0 0 auto; /* 防止按鈕影響 flex 佈局 */
   background: rgba(0, 0, 0, 0.3);
   border: none;
   color: #fff;
   font-size: 2rem;
   cursor: pointer;
   z-index: 4;
-  padding: 5px 10px;
+  padding: 10px 15px; /* 增加點擊區域 */
+  border-radius: 50%; /* 使按鈕圓形 */
+  transition: background 0.3s, transform 0.3s;
+
   &:hover {
     background: rgba(0, 0, 0, 0.5);
   }
+
+  /* 根據位置調整 transform */
   ${(props) =>
-  props.position === 'left'
-    ? `
-    left: -70px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
+    props.position === 'left'
+      ? `
+    transform: translateX(-50px); /* 將左箭頭稍微向左移出 */
   `
-    : `
-    right: -70px; /* 將按鈕稍微移出容器外，避免與卡片重疊 */
+      : `
+    transform: translateX(50px); /* 將右箭頭稍微向右移出 */
   `}
 `;
 

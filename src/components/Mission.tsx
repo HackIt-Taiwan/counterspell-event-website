@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import {ContainerTitle} from "./common/StyledComponents.tsx";
 
 // Define floating animation with different offsets and durations
 const float = (offset: number) => keyframes`
@@ -33,21 +34,6 @@ const MissionSectionContainer = styled.div`
   }
 `;
 
-// Title styled component
-const Title = styled.h1`
-  position: absolute;
-  font-size: 72px;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: var(--text-color);
-
-  @media (max-width: 900px) {
-    position: static;
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-`;
-
 // Planet styled component
 const Planet = styled.div<{
   scale: number;
@@ -59,7 +45,7 @@ const Planet = styled.div<{
   width: ${(props) => (props.isCard ? '100%' : `${150 * props.scale}px`)};
   height: ${(props) => (props.isCard ? 'auto' : `${150 * props.scale}px`)};
   background-color: ${(props) =>
-  props.flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
+    props.flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
   color: ${(props) => (props.flipped ? 'var(--text-color)' : 'transparent')};
   display: flex;
   justify-content: center;
@@ -71,33 +57,36 @@ const Planet = styled.div<{
   padding: ${(props) => (props.isCard ? '20px' : `${12 * props.scale}px`)};
   margin: ${(props) => (props.isCard ? '10px 0' : '0')};
   box-shadow: ${(props) =>
-  props.isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
+    props.isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
   transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
 
   /* Floating animation for non-card layout */
   animation: ${(props) =>
-  !props.isCard ? float(props.floatOffset) : 'none'}
-    ${(props) => props.animationDuration} ease-in-out infinite;
+    !props.isCard ? float(props.floatOffset) : 'none'}
+  ${(props) => props.animationDuration} ease-in-out infinite;
 
   /* Hover and click effects */
   &:hover {
     transform: ${(props) =>
-  props.isCard
-    ? 'none'
-    : props.flipped
-      ? 'none'
-      : 'scale(1.1)'};
+      props.isCard
+        ? 'none'
+        : props.flipped
+          ? 'none'
+          : 'scale(1.1)'};
     box-shadow: ${(props) =>
-  props.isCard
-    ? '0 6px 12px rgba(0, 0, 0, 0.2)'
-    : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
+      props.isCard
+        ? '0 6px 12px rgba(0, 0, 0, 0.2)'
+        : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
     background-color: var(--link-color);
     color: var(--text-color);
   }
 `;
 
 // PlanetContainer styled component for non-card layout
-const PlanetContainer = styled.div<{ xOffset: number; yOffset: number }>`
+const PlanetContainer = styled.div<{
+  xOffset: number;
+  yOffset: number;
+}>`
   position: absolute;
   top: ${(props) => props.yOffset}vh;
   left: ${(props) => props.xOffset}vw;
@@ -109,11 +98,11 @@ const PlanetContainer = styled.div<{ xOffset: number; yOffset: number }>`
 `;
 
 const CardContainer = styled.div`
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Mission: React.FC = () => {
@@ -181,7 +170,7 @@ const Mission: React.FC = () => {
   return (
     <MissionSectionContainer>
       {/* Central Title */}
-      <Title>活動宗旨</Title>
+      <ContainerTitle>活動宗旨</ContainerTitle>
 
       {isSmallScreen ? (
         // Card Layout for small screens

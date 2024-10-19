@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HandDrawnCheckmark from '../assets/hand-drawn-checkmark.svg';
+import {ContainerTitle} from "./common/StyledComponents.tsx";
 
 const SectionContainer = styled.div`
   display: flex;
@@ -35,18 +36,6 @@ const LeftContentContainer = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     margin-right: 0;
-  }
-`;
-
-const Title = styled.h1`
-  font-size: clamp(36px, 8vw, 64px);
-  font-family: 'Arial', sans-serif;
-  margin-bottom: 20px;
-  text-align: left;
-  color: var(--text-color);
-
-  @media (max-width: 768px) {
-    text-align: center;
   }
 `;
 
@@ -130,7 +119,7 @@ const TeamQualification: React.FC = () => {
   return (
     <SectionContainer>
       <LeftContentContainer>
-        <Title>組隊資格</Title>
+        <ContainerTitle>組隊資格</ContainerTitle>
       </LeftContentContainer>
 
       <RightContentContainer>
