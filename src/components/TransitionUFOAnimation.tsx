@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import UFOImage from '../assets/ufo.png';
 
 // Define the initial height for easier configuration
-const initialHeight = 1800; // Initial height for larger screens
+const initialHeight = 1200; // Initial height for larger screens
 
 // Styled component for the UFO animation section
 const UFOContainer = styled.div<{ height: number }>`

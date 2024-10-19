@@ -17,6 +17,7 @@ const HorizontalScrollContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 50px 0;
+  margin-top: 10vh;
   background-color: var(--background-color-light);
 
   @media (max-width: 768px) {

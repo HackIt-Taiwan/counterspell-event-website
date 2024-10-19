@@ -13,9 +13,10 @@ const SectionContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 50px;
-  height: 100vh;
+  height: 70vh;
   box-sizing: border-box;
   background-color: var(--background-color-light);
+  margin-left: 5vw;
 
   @media (max-width: 768px) {
     flex-direction: column;

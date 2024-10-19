@@ -20,6 +20,14 @@ import HorizontalScroll from "../components/HorizontalScroll";
 import SmoothScroll from "../components/SmoothScroll";
 import Mission from "../components/Mission";
 import ContactInfo from "../components/ContactInfo";
+import Carousel from "../components/Carousel.tsx";
+
+const bonusCards = [
+  { id: '1', title: '獎金 1', content: '這是一個驚喜獎金！' },
+  { id: '2', title: '獎金 2', content: '這是第二個獎金卡片！' },
+  { id: '3', title: '獎金 3', content: '第三個獎金卡片，祝你好運！' },
+  { id: '4', title: '獎金 3', content: '第三個獎金卡片，祝你好運！' },
+];
 
 const HomePage: React.FC = () => {
   return (
@@ -28,6 +36,7 @@ const HomePage: React.FC = () => {
       <EventIntroTransition />
       <CounterspellIntroductionSection />
       <OrganizerIntroductionSection />
+      <Carousel cards={bonusCards} />
       <TransitionUFOAnimation />
       <EventTime />
       <TeamQualification />

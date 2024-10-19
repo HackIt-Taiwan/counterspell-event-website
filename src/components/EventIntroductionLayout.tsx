@@ -11,8 +11,8 @@ const SectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 100px 50px 50px;
-  height: 100vh;
+  padding: 50px 100px 50px 100px;
+  min-height: 70vh;
   box-sizing: border-box;
   background-color: var(--background-color-light);
 

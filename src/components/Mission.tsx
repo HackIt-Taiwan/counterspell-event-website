@@ -151,7 +151,7 @@ const Mission: React.FC = () => {
     },
     {
       key: '宗旨 B',
-      text: '促進跨領域合作',
+      text: '培養創新思維與技術能力',
       xOffset: 15,
       yOffset: 50,
       scale: 1.7,
@@ -160,7 +160,7 @@ const Mission: React.FC = () => {
     },
     {
       key: '宗旨 C',
-      text: '強化問題解決與實踐能力',
+      text: '激勵學生踏上遊戲開發之路',
       xOffset: 70,
       yOffset: 10,
       scale: 1,
@@ -169,7 +169,7 @@ const Mission: React.FC = () => {
     },
     {
       key: '宗旨 D',
-      text: '推動青少年科技教育與創新',
+      text: '推動臺灣青少年科技社群發展',
       xOffset: 70,
       yOffset: 40,
       scale: 2,

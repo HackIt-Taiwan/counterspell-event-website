@@ -54,6 +54,7 @@
   --button-background-light: #4D4D4D;
   --button-hover-color: #FF4500;
   --button-focus-outline: 4px auto #FF4500;
+  --card-bg-color: #e0f7fa;
 }
 
 .color-scheme-light {
@@ -66,6 +67,7 @@
   --button-background-light: #E6E6E6;
   --button-hover-color: #0000FF;
   --button-focus-outline: 4px auto #0000FF;
+  --card-bg-color: #e0f7fa;
 }
 
 .color-scheme-colorful-high-contrast-bright {
@@ -78,6 +80,7 @@
   --button-background-light: #ADFF2F;
   --button-hover-color: #FF0000;
   --button-focus-outline: 4px auto #FF0000;
+  --card-bg-color: #e0f7fa;
 }
 
 .color-scheme-colorful-high-contrast-dark {
@@ -90,6 +93,7 @@
   --button-background-light: #00CED1;
   --button-hover-color: #00FF00;
   --button-focus-outline: 4px auto #00FF00;
+  --card-bg-color: #e0f7fa;
 }
 
 .color-scheme-colorful-low-contrast-bright {
@@ -102,6 +106,7 @@
   --button-background-light: #E0FFFF;
   --button-hover-color: #ADD8E6;
   --button-focus-outline: 4px auto #ADD8E6;
+  --card-bg-color: #e0f7fa;
 }
 
 .color-scheme-colorful-low-contrast-dark {
@@ -114,6 +119,7 @@
   --button-background-light: #778899;
   --button-hover-color: #FF69B4;
   --button-focus-outline: 4px auto #FF69B4;
+  --card-bg-color: #e0f7fa;
 }
 
 
