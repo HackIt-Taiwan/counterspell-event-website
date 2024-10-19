@@ -1,12 +1,12 @@
-/*
-  Mission Component
-  Displays the mission statements with interactive planets.
-  Updated to use CSS variables for colors and background colors.
-*/
+/**
+ * Mission Component
+ * Displays the mission statements with interactive planets.
+ * Updated to use transient props to prevent React warnings about unknown props.
+ */
 
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import {ContainerTitle} from "./common/StyledComponents.tsx";
+import { ContainerTitle } from "./common/StyledComponents.tsx";
 
 // Define floating animation with different offsets and durations
 const float = (offset: number) => keyframes`
@@ -82,14 +82,14 @@ const Planet = styled.div<{
   }
 `;
 
-// PlanetContainer styled component for non-card layout
+// PlanetContainer styled component using transient props
 const PlanetContainer = styled.div<{
-  xOffset: number;
-  yOffset: number;
+  $xOffset: number;
+  $yOffset: number;
 }>`
   position: absolute;
-  top: ${(props) => props.yOffset}vh;
-  left: ${(props) => props.xOffset}vw;
+  top: ${({ $yOffset }) => $yOffset}vh;
+  left: ${({ $xOffset }) => $xOffset}vw;
 
   @media (max-width: 900px) {
     position: static;
@@ -196,8 +196,8 @@ const Mission: React.FC = () => {
         missions.map((mission) => (
           <PlanetContainer
             key={mission.key}
-            xOffset={mission.xOffset}
-            yOffset={mission.yOffset}
+            $xOffset={mission.xOffset}
+            $yOffset={mission.yOffset}
           >
             <Planet
               scale={mission.scale}

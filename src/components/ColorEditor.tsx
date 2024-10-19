@@ -127,6 +127,32 @@ const ActionButton = styled.button`
   }
 `;
 
+// 繁體中文翻譯函數
+const translateVarName = (varName: string): string => {
+  const translations: { [key: string]: string } = {
+    '--text-color': '文字顏色',
+    '--background-color-dark': '背景顏色（暗）',
+    '--background-color-light': '背景顏色（亮）',
+    '--link-color': '連結顏色',
+    '--link-hover-color': '連結懸停顏色',
+    '--button-background-dark': '按鈕背景色（暗）',
+    '--button-background-light': '按鈕背景色（亮）',
+    '--button-hover-color': '按鈕懸停顏色',
+    '--button-focus-outline': '按鈕聚焦外框',
+  };
+  return translations[varName] || varName;
+};
+
+// 定義配色方案類型
+interface CustomScheme {
+  variables: { [key: string]: string };
+}
+
+interface CustomSchemes {
+  [key: string]: CustomScheme;
+}
+
+// ColorEditor Component
 const ColorEditor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentScheme, setCurrentScheme] = useState<string>('color-scheme-dark');
@@ -140,8 +166,24 @@ const ColorEditor: React.FC = () => {
     '--button-background-dark': '#333333',
     '--button-background-light': '#4D4D4D',
     '--button-hover-color': '#FF4500',
-    '--button-focus-outline-color': '#FF4500', // 修改變數名稱為更具體
+    '--button-focus-outline': '#FF4500', // 修改變數名稱為更具體
   });
+
+  // 函數：從CSS變數讀取當前配色方案
+  const readCSSVariables = (root: HTMLElement): { [key: string]: string } => {
+    const computedStyle = getComputedStyle(root);
+    const vars: { [key: string]: string } = { ...variables };
+    Object.keys(vars).forEach(varName => {
+      if (varName === '--button-focus-outline') {
+        const fullValue = computedStyle.getPropertyValue('--button-focus-outline').trim();
+        const color = fullValue.split(' ').pop() || '#FF4500';
+        vars[varName] = color;
+      } else {
+        vars[varName] = computedStyle.getPropertyValue(varName).trim();
+      }
+    });
+    return vars;
+  };
 
   // 當組件打開時，讀取當前配色方案
   useEffect(() => {
@@ -152,17 +194,7 @@ const ColorEditor: React.FC = () => {
       setCurrentScheme(scheme);
 
       // 讀取 CSS 變數
-      const computedStyle = getComputedStyle(root);
-      const vars: { [key: string]: string } = { ...variables };
-      Object.keys(vars).forEach(varName => {
-        if (varName === '--button-focus-outline-color') {
-          const fullValue = computedStyle.getPropertyValue('--button-focus-outline').trim();
-          const color = fullValue.split(' ').pop() || '#FF4500';
-          vars[varName] = color;
-        } else {
-          vars[varName] = computedStyle.getPropertyValue(varName).trim();
-        }
-      });
+      const vars = readCSSVariables(root);
       setVariables(vars);
 
       // 設定方案名稱
@@ -177,7 +209,8 @@ const ColorEditor: React.FC = () => {
       };
       setSchemeName(schemeNames[scheme] || '自定義模式');
     }
-  }, [isOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]); // 移除 'variables' 依賴以避免不必要的觸發
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -203,18 +236,23 @@ const ColorEditor: React.FC = () => {
     setSchemeName(schemeNames[scheme] || '自定義模式');
 
     // 讀取 CSS 變數
-    const computedStyle = getComputedStyle(root);
-    const vars: { [key: string]: string } = { ...variables };
-    Object.keys(vars).forEach(varName => {
-      if (varName === '--button-focus-outline-color') {
-        const fullValue = computedStyle.getPropertyValue('--button-focus-outline').trim();
-        const color = fullValue.split(' ').pop() || '#FF4500';
-        vars[varName] = color;
-      } else {
-        vars[varName] = computedStyle.getPropertyValue(varName).trim();
-      }
-    });
+    const vars = readCSSVariables(root);
     setVariables(vars);
+
+    // 保存到 localStorage
+    const storedSchemes = localStorage.getItem('customSchemes');
+    let customSchemes: CustomSchemes = {};
+    if (storedSchemes) {
+      try {
+        customSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+      } catch (error) {
+        console.error('Failed to parse customSchemes from localStorage:', error);
+      }
+    }
+    customSchemes[scheme] = {
+      variables: vars,
+    };
+    localStorage.setItem('customSchemes', JSON.stringify(customSchemes));
   };
 
   const handleVariableChange = (varName: string, value: string) => {
@@ -222,13 +260,31 @@ const ColorEditor: React.FC = () => {
       ...prev,
       [varName]: value,
     }));
-    if (varName === '--button-focus-outline-color') {
+    if (varName === '--button-focus-outline') {
       // 程式中添加 "4px auto"
       document.documentElement.style.setProperty('--button-focus-outline', `4px auto ${value}`);
     } else {
       // 實時更新其他 CSS 變數
       document.documentElement.style.setProperty(varName, value);
     }
+
+    // 更新自定義配色方案
+    const storedSchemes = localStorage.getItem('customSchemes');
+    let customSchemes: CustomSchemes = {};
+    if (storedSchemes) {
+      try {
+        customSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+      } catch (error) {
+        console.error('Failed to parse customSchemes from localStorage:', error);
+      }
+    }
+    customSchemes[currentScheme] = {
+      variables: {
+        ...variables,
+        [varName]: value,
+      },
+    };
+    localStorage.setItem('customSchemes', JSON.stringify(customSchemes));
   };
 
   const handleCopy = () => {
@@ -255,7 +311,7 @@ const ColorEditor: React.FC = () => {
   const generateCSSContent = () => {
     let css = `.${schemeName} {\n`;
     Object.entries(variables).forEach(([key, value]) => {
-      if (key === '--button-focus-outline-color') {
+      if (key === '--button-focus-outline') {
         css += `  --button-focus-outline: 4px auto ${value};\n`;
       } else {
         css += `  ${key}: ${value};\n`;
@@ -299,7 +355,7 @@ const ColorEditor: React.FC = () => {
           <Label>變數名稱與色碼</Label>
           {Object.entries(variables).map(([varName, value]) => (
             <VariableRow key={varName}>
-              {varName === '--button-focus-outline-color' ? (
+              {varName === '--button-focus-outline' ? (
                 <>
                   <VariableLabel>按鈕聚焦外框</VariableLabel>
                   <VariableInput
@@ -328,22 +384,6 @@ const ColorEditor: React.FC = () => {
       </EditorPanel>
     </EditorContainer>
   );
-};
-
-// 繁體中文翻譯函數
-const translateVarName = (varName: string): string => {
-  const translations: { [key: string]: string } = {
-    '--text-color': '文字顏色',
-    '--background-color-dark': '背景顏色（暗）',
-    '--background-color-light': '背景顏色（亮）',
-    '--link-color': '連結顏色',
-    '--link-hover-color': '連結懸停顏色',
-    '--button-background-dark': '按鈕背景色（暗）',
-    '--button-background-light': '按鈕背景色（亮）',
-    '--button-hover-color': '按鈕懸停顏色',
-    '--button-focus-outline-color': '按鈕聚焦外框',
-  };
-  return translations[varName] || varName;
 };
 
 export default ColorEditor;

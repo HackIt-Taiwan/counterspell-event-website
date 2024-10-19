@@ -122,8 +122,19 @@
   --card-bg-color: #e0f7fa;
 }
 
-
-/* Add other color schemes as needed */
+/* 新增灰色模式配色方案 */
+.color-scheme-gray {
+  --text-color: #333333;
+  --background-color-dark: #F5F5F5;
+  --background-color-light: #E0E0E0;
+  --link-color: #555555;
+  --link-hover-color: #777777;
+  --button-background-dark: #B0B0B0;
+  --button-background-light: #C0C0C0;
+  --button-hover-color: #999999;
+  --button-focus-outline: 4px auto #555555;
+  --card-bg-color: #D3D3D3;
+}
 
 /* Base Styles */
 body {
@@ -184,8 +195,6 @@ button:focus,
 button:focus-visible {
   outline: var(--button-focus-outline);
 }
-
-
 
 /* Font Face */
 @font-face {

@@ -1,7 +1,7 @@
 /*
   ScrollIndicator Component
   Displays a scroll indicator with animated lines and text to guide user navigation.
-  Updated to use CSS variables for colors.
+  Updated to use transient props to prevent React warnings about unknown props.
 */
 
 import React, { useEffect, useState, useRef } from 'react';
@@ -38,22 +38,22 @@ const ScrollText = styled.div`
   }
 `;
 
-// Styled component for the animated line.
-const Line = styled.div<{ height: number; translateY: number }>`
+// Styled component for the animated line using transient prop $translateY
+const Line = styled.div<{ height: string; $translateY: number }>`
   width: 2px;
   background-color: var(--text-color);
-  height: ${({ height }) => height}px;
+  height: ${({ height }) => height};
   margin-top: 10px;
-  transform: translateY(${({ translateY }) => translateY}px);
+  transform: translateY(${({ $translateY }) => $translateY}px);
   transition: height 0.5s ease-out, transform 1s ease-out;
 
   @media (max-width: 768px) {
-    height: ${({ height }) => height * 0.8}px;
+    height: ${({ height }) => height};
   }
 `;
 
 const ScrollIndicator: React.FC = () => {
-  const [lineHeight, setLineHeight] = useState(0);
+  const [lineHeight, setLineHeight] = useState('0px');
   const [translateY, setTranslateY] = useState(0);
   const [isGrowing, setIsGrowing] = useState(true);
   const [isMovingDown, setIsMovingDown] = useState(false);
@@ -83,7 +83,7 @@ const ScrollIndicator: React.FC = () => {
       if (isGrowing) {
         // Increment line height until it reaches the target scrollHeight.
         const newHeight = Math.min(scrollHeight, (progress / 1000) * scrollHeight);
-        setLineHeight(newHeight);
+        setLineHeight(`${newHeight}px`);
 
         if (newHeight >= scrollHeight) {
           setIsGrowing(false);
@@ -102,8 +102,9 @@ const ScrollIndicator: React.FC = () => {
         }
       } else if (isShrinking) {
         // Shrink the line until it disappears from the bottom.
-        const newHeight = Math.max(0, scrollHeight - (progress / 1000) * scrollHeight);
-        setLineHeight(newHeight);
+        const currentHeight = parseFloat(lineHeight);
+        const newHeight = Math.max(0, currentHeight - (progress / 1000) * scrollHeight);
+        setLineHeight(`${newHeight}px`);
 
         if (newHeight <= 0) {
           setIsShrinking(false);
@@ -113,7 +114,7 @@ const ScrollIndicator: React.FC = () => {
           timeoutId = window.setTimeout(() => {
             // Reset states after the line is fully removed.
             setIsGrowing(true);
-            setLineHeight(0);
+            setLineHeight('0px');
             setTranslateY(0);
           }, 500); // Wait 0.5 seconds before restarting the animation.
           return;
@@ -129,12 +130,12 @@ const ScrollIndicator: React.FC = () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [isGrowing, isMovingDown, isShrinking]);
+  }, [isGrowing, isMovingDown, isShrinking, lineHeight]);
 
   return (
     <ScrollIndicatorContainer containerHeight={containerHeight}>
       <ScrollText ref={scrollRef}>Scroll</ScrollText>
-      <Line height={lineHeight} translateY={translateY} />
+      <Line height={lineHeight} $translateY={translateY} />
     </ScrollIndicatorContainer>
   );
 };
