@@ -206,7 +206,6 @@ const ColorEditor: React.FC = () => {
         'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
         'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
         'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
-        'aqua-blue': '水藍+藍',
       };
       setSchemeName(schemeNames[scheme] || '自定義模式');
     }
@@ -233,7 +232,6 @@ const ColorEditor: React.FC = () => {
       'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
       'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
       'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
-      'aqua-blue': '水藍+藍',
     };
     setSchemeName(schemeNames[scheme] || '自定義模式');
 
