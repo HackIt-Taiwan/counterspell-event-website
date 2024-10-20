@@ -1,5 +1,8 @@
+// ColorEditor.tsx
+
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { colorSchemes, CustomScheme } from '../colorSchemes';
 
 // 組件容器
 const EditorContainer = styled.div`
@@ -141,43 +144,6 @@ const translateVarName = (varName: string): string => {
   return translations[varName] || varName;
 };
 
-// 定義配色方案類型
-interface CustomScheme {
-  variables: { [key: string]: string };
-}
-
-interface CustomSchemes {
-  [key: string]: CustomScheme;
-}
-
-// 預設配色方案
-const defaultSchemes: { [key: string]: CustomScheme } = {
-  'color-scheme-dark': {
-    variables: {
-      '--text-color': '#FFFFFF',
-      '--background-color': '#000000',
-      '--link-color': '#FF4500',
-      '--link-hover-color': '#FF6347',
-      '--button-background': '#333333',
-      '--button-hover-color': '#FF4500',
-      '--button-focus-outline': '#FF4500', // 變數名稱已修改為更具體
-    },
-  },
-  'color-scheme-light': {
-    variables: {
-      '--text-color': '#000000',
-      '--background-color': '#F0F0F0',
-      '--link-color': '#0000FF',
-      '--link-hover-color': '#0000AA',
-      '--button-background': '#CCCCCC',
-      '--button-hover-color': '#0000FF',
-      '--button-focus-outline': '#0000FF',
-    },
-  },
-  // 可在此處添加更多預設配色方案
-};
-
-// ColorEditor Component
 const ColorEditor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentScheme, setCurrentScheme] = useState<string>('color-scheme-dark');
@@ -213,24 +179,16 @@ const ColorEditor: React.FC = () => {
     if (isOpen) {
       const root = document.documentElement;
       const classes = root.className.split(' ');
-      const scheme = classes.find(cls => cls.startsWith('color-scheme-')) || 'color-scheme-dark';
-      setCurrentScheme(scheme);
+      const schemeClass = classes.find(cls => cls.startsWith('color-scheme-')) || 'color-scheme-dark';
+      setCurrentScheme(schemeClass);
 
       // 讀取 CSS 變數
       const vars = readCSSVariables(root);
       setVariables(vars);
 
       // 設定方案名稱
-      const schemeNames: { [key: string]: string } = {
-        'color-scheme-dark': '暗色模式',
-        'color-scheme-light': '淺色模式',
-        'color-scheme-gray': '灰色模式',
-        'color-scheme-colorful-high-contrast-bright': '色彩豐富高對比亮色',
-        'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
-        'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
-        'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
-      };
-      setSchemeName(schemeNames[scheme] || '自定義模式');
+      const scheme = colorSchemes.find(s => s.className === schemeClass);
+      setSchemeName(scheme ? scheme.translation : '自定義模式');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); // 移除 'variables' 依賴以避免不必要的觸發
@@ -239,25 +197,17 @@ const ColorEditor: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSchemeChange = (scheme: string) => {
+  const handleSchemeChange = (schemeClass: string) => {
     const root = document.documentElement;
 
     // 清除所有 color-scheme-* 類別
-    root.className = ''; // 清除所有類別
-    root.classList.add(scheme); // 添加新的配色方案類別
-    setCurrentScheme(scheme);
+    root.classList.remove(...colorSchemes.map(s => s.className));
+    root.classList.add(schemeClass); // 添加新的配色方案類別
+    setCurrentScheme(schemeClass);
 
     // 設定方案名稱
-    const schemeNames: { [key: string]: string } = {
-      'color-scheme-dark': '暗色模式',
-      'color-scheme-light': '淺色模式',
-      'color-scheme-gray': '灰色模式',
-      'color-scheme-colorful-high-contrast-bright': '色彩豐富高對比亮色',
-      'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
-      'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
-      'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
-    };
-    setSchemeName(schemeNames[scheme] || '自定義模式');
+    const scheme = colorSchemes.find(s => s.className === schemeClass);
+    setSchemeName(scheme ? scheme.translation : '自定義模式');
 
     // 清除之前透過 inline style 設定的 CSS 變數
     Object.keys(variables).forEach(varName => {
@@ -270,16 +220,19 @@ const ColorEditor: React.FC = () => {
 
     // 保存到 localStorage
     const storedSchemes = localStorage.getItem('customSchemes');
-    let customSchemes: CustomSchemes = { ...defaultSchemes };
+    let customSchemes: { [key: string]: CustomScheme } = {};
     if (storedSchemes) {
       try {
-        const parsedSchemes = JSON.parse(storedSchemes) as CustomSchemes;
-        customSchemes = { ...customSchemes, ...parsedSchemes };
+        const parsedSchemes = JSON.parse(storedSchemes) as { [key: string]: CustomScheme };
+        customSchemes = { ...parsedSchemes };
       } catch (error) {
         console.error('Failed to parse customSchemes from localStorage:', error);
       }
     }
-    customSchemes[scheme] = {
+    customSchemes[schemeClass] = {
+      name: scheme?.name || '自定義模式',
+      className: schemeClass,
+      translation: scheme?.translation || '自定義模式',
       variables: vars,
     };
     localStorage.setItem('customSchemes', JSON.stringify(customSchemes));
@@ -300,16 +253,17 @@ const ColorEditor: React.FC = () => {
 
     // 更新自定義配色方案
     const storedSchemes = localStorage.getItem('customSchemes');
-    let customSchemes: CustomSchemes = { ...defaultSchemes };
+    let customSchemes: { [key: string]: CustomScheme } = {};
     if (storedSchemes) {
       try {
-        const parsedSchemes = JSON.parse(storedSchemes) as CustomSchemes;
-        customSchemes = { ...customSchemes, ...parsedSchemes };
+        const parsedSchemes = JSON.parse(storedSchemes) as { [key: string]: CustomScheme };
+        customSchemes = { ...parsedSchemes };
       } catch (error) {
         console.error('Failed to parse customSchemes from localStorage:', error);
       }
     }
     customSchemes[currentScheme] = {
+      ...customSchemes[currentScheme],
       variables: {
         ...variables,
         [varName]: value,
@@ -364,13 +318,11 @@ const ColorEditor: React.FC = () => {
             value={currentScheme}
             onChange={(e) => handleSchemeChange(e.target.value)}
           >
-            <option value="color-scheme-dark">暗色模式</option>
-            <option value="color-scheme-light">淺色模式</option>
-            <option value="color-scheme-gray">灰色模式</option>
-            <option value="color-scheme-colorful-high-contrast-bright">色彩豐富高對比亮色</option>
-            <option value="color-scheme-colorful-high-contrast-dark">色彩豐富高對比暗色</option>
-            <option value="color-scheme-colorful-low-contrast-bright">色彩豐富低對比亮色</option>
-            <option value="color-scheme-colorful-low-contrast-dark">色彩豐富低對比暗色</option>
+            {colorSchemes.map(scheme => (
+              <option key={scheme.className} value={scheme.className}>
+                {scheme.translation}
+              </option>
+            ))}
             {/* 可以在這裡動態添加自定義配色方案 */}
           </Dropdown>
         </Section>
