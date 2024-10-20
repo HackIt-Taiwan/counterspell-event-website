@@ -17,7 +17,7 @@ const SectionContainer = styled.div`
   padding: 50px;
   height: 70vh;
   box-sizing: border-box;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 768px) {
     flex-direction: column;

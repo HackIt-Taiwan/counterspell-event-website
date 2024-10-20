@@ -23,7 +23,7 @@ const MissionSectionContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
 
   /* Responsive styles for small screens */
   @media (max-width: 900px) {
@@ -45,7 +45,7 @@ const Planet = styled.div<{
   width: ${(props) => (props.$iscard ? '100%' : `${150 * props.scale}px`)};
   height: ${(props) => (props.$iscard ? 'auto' : `${150 * props.scale}px`)};
   background-color: ${(props) =>
-    props.$flipped ? 'var(--link-color)' : 'var(--button-background-light)'};
+    props.$flipped ? 'var(--link-color)' : 'var(--button-background)'};
   color: ${(props) => (props.$flipped ? 'var(--text-color)' : 'transparent')};
   display: flex;
   justify-content: center;

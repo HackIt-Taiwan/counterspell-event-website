@@ -1,4 +1,4 @@
-// components/EventIntroTransition.tsx
+// components/EventInformationTransition.tsx
 
 import React from 'react';
 import TextTransitionLayout from './TextTransitionLayout';

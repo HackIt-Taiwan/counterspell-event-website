@@ -12,7 +12,7 @@ const FAQSection = styled.section`
   width: 100%;
   margin-top: 20px;
   padding: 30px 5%;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ const FAQItemContainer = styled.div`
 
 // Styled component for individual FAQ items.
 const FAQItem = styled.div`
-  border-bottom: 1px solid var(--button-background-light);
+  border-bottom: 1px solid var(--button-background);
   margin-bottom: 15px;
 `;
 
@@ -67,7 +67,7 @@ const QuestionRow = styled.div`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--background-color-dark);
+    background-color: var(--background-color);
   }
 `;
 

@@ -131,12 +131,10 @@ const ActionButton = styled.button`
 const translateVarName = (varName: string): string => {
   const translations: { [key: string]: string } = {
     '--text-color': '文字顏色',
-    '--background-color-dark': '背景顏色（暗）',
-    '--background-color-light': '背景顏色（亮）',
+    '--background-color': '背景顏色',
     '--link-color': '連結顏色',
     '--link-hover-color': '連結懸停顏色',
-    '--button-background-dark': '按鈕背景色（暗）',
-    '--button-background-light': '按鈕背景色（亮）',
+    '--button-background': '按鈕背景色',
     '--button-hover-color': '按鈕懸停顏色',
     '--button-focus-outline': '按鈕聚焦外框',
   };
@@ -152,6 +150,33 @@ interface CustomSchemes {
   [key: string]: CustomScheme;
 }
 
+// 預設配色方案
+const defaultSchemes: { [key: string]: CustomScheme } = {
+  'color-scheme-dark': {
+    variables: {
+      '--text-color': '#FFFFFF',
+      '--background-color': '#000000',
+      '--link-color': '#FF4500',
+      '--link-hover-color': '#FF6347',
+      '--button-background': '#333333',
+      '--button-hover-color': '#FF4500',
+      '--button-focus-outline': '#FF4500', // 變數名稱已修改為更具體
+    },
+  },
+  'color-scheme-light': {
+    variables: {
+      '--text-color': '#000000',
+      '--background-color': '#F0F0F0',
+      '--link-color': '#0000FF',
+      '--link-hover-color': '#0000AA',
+      '--button-background': '#CCCCCC',
+      '--button-hover-color': '#0000FF',
+      '--button-focus-outline': '#0000FF',
+    },
+  },
+  // 可在此處添加更多預設配色方案
+};
+
 // ColorEditor Component
 const ColorEditor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -159,14 +184,12 @@ const ColorEditor: React.FC = () => {
   const [schemeName, setSchemeName] = useState<string>('暗色模式');
   const [variables, setVariables] = useState<{ [key: string]: string }>({
     '--text-color': '#FFFFFF',
-    '--background-color-dark': '#000000',
-    '--background-color-light': '#1A1A1A',
+    '--background-color': '#000000',
     '--link-color': '#FF4500',
     '--link-hover-color': '#FF6347',
-    '--button-background-dark': '#333333',
-    '--button-background-light': '#4D4D4D',
+    '--button-background': '#333333',
     '--button-hover-color': '#FF4500',
-    '--button-focus-outline': '#FF4500', // 修改變數名稱為更具體
+    '--button-focus-outline': '#FF4500',
   });
 
   // 函數：從CSS變數讀取當前配色方案
@@ -241,10 +264,11 @@ const ColorEditor: React.FC = () => {
 
     // 保存到 localStorage
     const storedSchemes = localStorage.getItem('customSchemes');
-    let customSchemes: CustomSchemes = {};
+    let customSchemes: CustomSchemes = { ...defaultSchemes };
     if (storedSchemes) {
       try {
-        customSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+        const parsedSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+        customSchemes = { ...customSchemes, ...parsedSchemes };
       } catch (error) {
         console.error('Failed to parse customSchemes from localStorage:', error);
       }
@@ -270,10 +294,11 @@ const ColorEditor: React.FC = () => {
 
     // 更新自定義配色方案
     const storedSchemes = localStorage.getItem('customSchemes');
-    let customSchemes: CustomSchemes = {};
+    let customSchemes: CustomSchemes = { ...defaultSchemes };
     if (storedSchemes) {
       try {
-        customSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+        const parsedSchemes = JSON.parse(storedSchemes) as CustomSchemes;
+        customSchemes = { ...customSchemes, ...parsedSchemes };
       } catch (error) {
         console.error('Failed to parse customSchemes from localStorage:', error);
       }
@@ -312,7 +337,7 @@ const ColorEditor: React.FC = () => {
     let css = `.${schemeName} {\n`;
     Object.entries(variables).forEach(([key, value]) => {
       if (key === '--button-focus-outline') {
-        css += `  --button-focus-outline: 4px auto ${value};\n`;
+        css += `  ${key}: 4px auto ${value};\n`;
       } else {
         css += `  ${key}: ${value};\n`;
       }

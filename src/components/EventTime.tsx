@@ -36,7 +36,7 @@ const Container = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 700px) {
     flex-direction: column;

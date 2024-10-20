@@ -17,7 +17,7 @@ const TimeBoxContainer = styled.div`
   padding: 2vw;
   min-width: 20vw;
   min-height: 60vh;
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
   color: var(--text-color);
   border-radius: 12px;
   position: absolute;
@@ -29,7 +29,7 @@ const TimeBoxContainer = styled.div`
 
   &:hover {
     transform: translateY(-60%); /* Slight hover effect */
-    background-color: var(--button-background-dark);
+    background-color: var(--button-background);
   }
 
   @media (max-width: 768px) {

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 const ContactCard = styled.div`
   width: 100%;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;

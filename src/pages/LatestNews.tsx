@@ -35,7 +35,7 @@ const NewsItemContainer = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   transition: transform 0.3s, box-shadow 0.3s;
   text-decoration: none;
 

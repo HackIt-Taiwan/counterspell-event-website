@@ -20,7 +20,7 @@ const LogoContainer = styled.div<{ size: string }>`
   height: ${(props) => props.size};
   border-radius: 50%;
   overflow: hidden;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,7 @@ const Image = styled.img`
 const Fallback = styled.div`
   width: 100%;
   height: 100%;
-  background-color: var(--button-background-light);
+  background-color: var(--button-background);
 `;
 
 // Logo Component

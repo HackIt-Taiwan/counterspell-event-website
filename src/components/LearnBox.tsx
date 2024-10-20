@@ -28,7 +28,7 @@ const LearnBoxContainer = styled.div`
   padding: 2vw;
   min-height: 5vh;
   max-height: 15vh;
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
   width: 100%;
   box-sizing: border-box;
   gap: 20px;

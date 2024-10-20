@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: start;
   padding: 20px;
   margin-bottom: 10vw;
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
   position: relative;
 `;
 
@@ -46,7 +46,7 @@ const Content = styled.div`
   font-family: Arial, sans-serif;
   line-height: var(--line-height);
   color: var(--text-color);
-  margin-top: 20px; // 確保與標題有間距
+  margin-top: 20px; /* 確保與標題有間距 */
   & a {
     color: var(--link-color);
   }
@@ -67,7 +67,7 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; // 確保圖片容器的高度與文字容器一致
+  height: 100%; /* 確保圖片容器的高度與文字容器一致 */
 
   img {
     width: 80%;
@@ -83,7 +83,7 @@ const ContactButton = styled.button`
   top: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: var(--button-background-dark);
+  background-color: var(--button-background);
   color: var(--text-color);
   font-size: 1.2rem;
   border: none;

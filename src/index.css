@@ -13,45 +13,27 @@
   --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   --line-height: 1.5;
   --font-weight: 400;
-  --color-scheme: light dark;
 
-  /* Default color scheme variables */
+  /* Unified color scheme variables */
   --text-color: #FFFFFF;
-  --background-color-dark: #000000;
-  --background-color-light: #1A1A1A;
+  --background-color: #1A1A1A;
   --link-color: #FF4500;
   --link-hover-color: #FF6347;
-  --button-background-dark: #333333;
-  --button-background-light: #4D4D4D;
+  --button-background: #4D4D4D;
   --button-hover-color: #FF4500;
   --button-focus-outline: 4px auto #FF4500;
+  --card-bg-color: #e0f7fa;
 }
 
-/* Light Mode Styles */
-@media (prefers-color-scheme: light) {
-  :root {
-    --text-color: #213547;
-    --background-color-dark: var(--background-color-light);
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: var(--button-background-light);
-  }
-}
+/* Removed prefers-color-scheme media query */
 
 /* Color Schemes */
 .color-scheme-dark {
   --text-color: #FFFFFF;
-  --background-color-dark: #000000;
-  --background-color-light: #1A1A1A;
+  --background-color: #000000;
   --link-color: #FF4500;
   --link-hover-color: #FF6347;
-  --button-background-dark: #333333;
-  --button-background-light: #4D4D4D;
+  --button-background: #333333;
   --button-hover-color: #FF4500;
   --button-focus-outline: 4px auto #FF4500;
   --card-bg-color: #e0f7fa;
@@ -59,12 +41,10 @@
 
 .color-scheme-light {
   --text-color: #000000;
-  --background-color-dark: #F0F0F0;
-  --background-color-light: #FFFFFF;
+  --background-color: #F0F0F0;
   --link-color: #0000FF;
   --link-hover-color: #0000AA;
-  --button-background-dark: #CCCCCC;
-  --button-background-light: #E6E6E6;
+  --button-background: #CCCCCC;
   --button-hover-color: #0000FF;
   --button-focus-outline: 4px auto #0000FF;
   --card-bg-color: #e0f7fa;
@@ -72,12 +52,10 @@
 
 .color-scheme-colorful-high-contrast-bright {
   --text-color: #000000;
-  --background-color-dark: #FFFFFF;
-  --background-color-light: #F0F8FF;
+  --background-color: #FFFFFF;
   --link-color: #FF0000;
   --link-hover-color: #FF4500;
-  --button-background-dark: #FFD700;
-  --button-background-light: #ADFF2F;
+  --button-background: #FFD700;
   --button-hover-color: #FF0000;
   --button-focus-outline: 4px auto #FF0000;
   --card-bg-color: #e0f7fa;
@@ -85,12 +63,10 @@
 
 .color-scheme-colorful-high-contrast-dark {
   --text-color: #FFFFFF;
-  --background-color-dark: #000000;
-  --background-color-light: #1C1C1C;
+  --background-color: #000000;
   --link-color: #00FF00;
   --link-hover-color: #32CD32;
-  --button-background-dark: #800080;
-  --button-background-light: #00CED1;
+  --button-background: #800080;
   --button-hover-color: #00FF00;
   --button-focus-outline: 4px auto #00FF00;
   --card-bg-color: #e0f7fa;
@@ -98,12 +74,10 @@
 
 .color-scheme-colorful-low-contrast-bright {
   --text-color: #555555;
-  --background-color-dark: #FFFAFA;
-  --background-color-light: #FFF0F5;
+  --background-color: #FFFAFA;
   --link-color: #ADD8E6;
   --link-hover-color: #87CEFA;
-  --button-background-dark: #FFDAB9;
-  --button-background-light: #E0FFFF;
+  --button-background: #FFDAB9;
   --button-hover-color: #ADD8E6;
   --button-focus-outline: 4px auto #ADD8E6;
   --card-bg-color: #e0f7fa;
@@ -111,12 +85,10 @@
 
 .color-scheme-colorful-low-contrast-dark {
   --text-color: #AAAAAA;
-  --background-color-dark: #2F4F4F;
-  --background-color-light: #696969;
+  --background-color: #2F4F4F;
   --link-color: #FF69B4;
   --link-hover-color: #FF1493;
-  --button-background-dark: #708090;
-  --button-background-light: #778899;
+  --button-background: #708090;
   --button-hover-color: #FF69B4;
   --button-focus-outline: 4px auto #FF69B4;
   --card-bg-color: #e0f7fa;
@@ -125,12 +97,10 @@
 /* 新增灰色模式配色方案 */
 .color-scheme-gray {
   --text-color: #333333;
-  --background-color-dark: #F5F5F5;
-  --background-color-light: #E0E0E0;
+  --background-color: #F5F5F5;
   --link-color: #555555;
   --link-hover-color: #777777;
-  --button-background-dark: #B0B0B0;
-  --button-background-light: #C0C0C0;
+  --button-background: #C0C0C0;
   --button-hover-color: #999999;
   --button-focus-outline: 4px auto #555555;
   --card-bg-color: #D3D3D3;
@@ -147,7 +117,7 @@ body {
   font-weight: var(--font-weight);
   color-scheme: var(--color-scheme);
   color: var(--text-color);
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -182,7 +152,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--button-background-dark);
+  background-color: var(--button-background);
   cursor: pointer;
   transition: border-color 0.25s;
 }

@@ -18,7 +18,7 @@ const HorizontalScrollContainer = styled.div`
   box-sizing: border-box;
   padding: 50px 0;
   margin-top: 10vh;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 768px) {
     padding: 20px 0;
@@ -53,7 +53,7 @@ const ScrollboxCard = styled.div`
   position: relative;
   width: 65rem;
   height: 40rem;
-  background-color: var(--button-background-light);
+  background-color: var(--button-background);
   border-radius: 5rem;
   margin-left: 3rem;
   flex-shrink: 0;

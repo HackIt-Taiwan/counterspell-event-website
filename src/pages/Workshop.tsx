@@ -16,7 +16,7 @@ const WorkshopContainer = styled.div`
   padding: 50px 2rem 2rem 2rem;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 800px) {
     padding: 100px 1rem 1rem 1rem;

@@ -17,7 +17,7 @@ const NavContainer = styled.nav`
   justify-content: flex-end;
   align-items: center;
   padding: 10px 40px;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   width: 100%;
   box-sizing: border-box;
   gap: 20px;

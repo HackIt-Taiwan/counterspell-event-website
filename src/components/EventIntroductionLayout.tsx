@@ -16,7 +16,7 @@ const SectionContainer = styled.div`
   padding: 50px 100px 50px 100px;
   min-height: 70vh;
   box-sizing: border-box;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 800px) {
     flex-direction: column;
@@ -55,7 +55,7 @@ const Description = styled.p`
 const RightColumn = styled.div`
   width: clamp(200px, 20vw, 300px);
   height: clamp(200px, 20vw, 300px);
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
 
   @media (max-width: 800px) {
     display: none;
