@@ -29,9 +29,9 @@ const CarouselWrapper = styled.div`
     margin: 4vh 0;
   }
 
-  @media (max-width: 480px) {
-    padding: 3vw;
-    margin: 3vh 0;
+  @media (max-width: 500px) { /* 調整斷點至500px */
+    padding: 3.5vw;
+    margin: 3.5vh 0;
   }
 `;
 
@@ -39,7 +39,7 @@ const CarouselWrapper = styled.div`
 const CarouselContainer = styled.div`
   width: 65%;
   height: 60vh;
-  margin: 15vh auto;
+  margin: 20vh auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,10 +57,10 @@ const CarouselContainer = styled.div`
     margin: 6vh auto;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 新增500px斷點 */
     width: 100%;
-    height: 40vh;
-    margin: 4vh auto;
+    height: 35vh; /* 減少高度以適應小螢幕 */
+    margin: 3.5vh auto;
   }
 `;
 
@@ -147,7 +147,7 @@ const CardWrapper = styled.div<{ position: CardPosition }>`
     }}
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 新增500px斷點 */
     ${(props) => {
       switch (props.position) {
         case 'left':
@@ -191,9 +191,9 @@ const StyledCard = styled.div<{ backgroundColor: string }>`
     padding: 1.2vw;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     width: 60vw;
-    height: 45vh;
+    height: 35vh; /* 減少高度 */
     padding: 1vw;
   }
 `;
@@ -205,8 +205,8 @@ const CardHeader = styled.div`
   align-items: flex-start;
   margin-bottom: 2vh;
 
-  @media (max-width: 480px) {
-    margin-bottom: 1vh;
+  @media (max-width: 500px) { /* 調整500px斷點 */
+    margin-bottom: 1.5vh;
   }
 `;
 
@@ -224,7 +224,7 @@ const CardAmount = styled.h2`
     font-size: 3rem;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     font-size: 2.5rem;
   }
 `;
@@ -245,7 +245,7 @@ const CardAwardName = styled.h3`
     margin-top: 0.6rem;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     font-size: 1.5rem;
     margin-top: 0.4rem;
   }
@@ -257,7 +257,7 @@ const CardDetails = styled.div`
   align-items: flex-end;
   justify-content: flex-start;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     justify-content: center;
   }
 `;
@@ -274,7 +274,7 @@ const CardPeopleCount = styled.span`
     font-size: 1.2rem;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     font-size: 1rem;
   }
 `;
@@ -312,10 +312,10 @@ const ArrowButton = styled.button<{ position: ArrowPosition }>`
     ${(props) => (props.position === 'left' ? 'left: -3vw;' : 'right: -3vw;')}
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) { /* 調整500px斷點 */
     padding: 0.8rem;
     font-size: 1.4rem;
-    ${(props) => (props.position === 'left' ? 'left: -2vw;' : 'right: -2vw;')}
+    ${(props) => (props.position === 'left' ? 'left: -2.5vw;' : 'right: -2.5vw;')}
   }
 `;
 
