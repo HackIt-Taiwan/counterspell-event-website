@@ -166,7 +166,7 @@ const ColorEditor: React.FC = () => {
     '--button-background-dark': '#333333',
     '--button-background-light': '#4D4D4D',
     '--button-hover-color': '#FF4500',
-    '--button-focus-outline': '#FF4500', // 修改變數名稱為更具體
+    '--button-focus-outline': '#FF4500',
   });
 
   // 函數：從CSS變數讀取當前配色方案
@@ -206,6 +206,7 @@ const ColorEditor: React.FC = () => {
         'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
         'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
         'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
+        'aqua-blue': '水藍+藍',
       };
       setSchemeName(schemeNames[scheme] || '自定義模式');
     }
@@ -232,6 +233,7 @@ const ColorEditor: React.FC = () => {
       'color-scheme-colorful-high-contrast-dark': '色彩豐富高對比暗色',
       'color-scheme-colorful-low-contrast-bright': '色彩豐富低對比亮色',
       'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
+      'aqua-blue': '水藍+藍',
     };
     setSchemeName(schemeNames[scheme] || '自定義模式');
 
