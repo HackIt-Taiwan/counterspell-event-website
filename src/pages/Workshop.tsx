@@ -81,7 +81,7 @@ const Workshop: React.FC = () => {
         <SubTitle>遊戲入門開發工作坊</SubTitle>
         <JoinButton />
         <EventInfoBox>
-          <p>活動時間: 2024/11/29 20:00 - 21:00</p>
+          <p>活動時間: 待定</p>
           <p>地點: 台北市</p>
         </EventInfoBox>
       </Content>
