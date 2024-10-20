@@ -7,7 +7,7 @@ const EventIntroTransition: React.FC = () => {
   return (
     <TextTransitionLayout
       title="活動介紹"
-      subtitle="About Counterspell Taiwan"
+      subtitle=""
     />
   );
 };

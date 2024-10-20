@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import GameDevImage from '../assets/game-dev.png';
+import EventTypeImage from '../assets/event-type.png';
 import { ContainerTitle as Title } from './common/StyledComponents.tsx';
 
 // Styled Components
@@ -34,7 +35,7 @@ const Number = styled.div`
   -webkit-text-stroke: 2px #000;
   position: absolute;
   top: 0;
-  left: 2vw;
+  left: 5vw;
 `;
 
 const TitleContainer = styled.div`
@@ -46,7 +47,7 @@ const Content = styled.div`
   font-family: Arial, sans-serif;
   line-height: var(--line-height);
   color: var(--text-color);
-  margin-top: 20px; /* 確保與標題有間距 */
+  margin-top: 20px;
   & a {
     color: var(--link-color);
   }
@@ -67,7 +68,7 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* 確保圖片容器的高度與文字容器一致 */
+  height: 100%;
 
   img {
     width: 80%;
@@ -75,22 +76,6 @@ const ImageContainer = styled.div`
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     object-fit: cover;
-  }
-`;
-
-const ContactButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: var(--button-background);
-  color: var(--text-color);
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--button-hover-color);
   }
 `;
 
@@ -105,13 +90,12 @@ const EventInformation: React.FC = () => {
     {
       title: '比賽型式',
       content: '這是一場以遊戲開發為主題的馬拉松式創作比賽。參賽者將在30小時內，自由組隊（3至6人一隊），從頭開始設計、編程和完成一款遊戲作品。比賽現場會有導師支援，並安排相關課程，幫助參賽者解決技術問題和提升創作能力。',
-      imageUrl: '/images/event2.png',
+      imageUrl: EventTypeImage,
     },
   ];
 
   return (
     <div>
-      <ContactButton>Contact</ContactButton>
       {eventData.map((data, index) => (
         <Container key={index}>
           <TextContainer>

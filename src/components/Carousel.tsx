@@ -114,9 +114,9 @@ const CardWrapper = styled.div<{ position: string }>`
 // Styled Components
 const CarouselWrapper = styled.div`
   text-align: left;
-  padding: 20px;
+  padding: 5vw;
   min-width: 100vw;
-  margin-left: 1vw;
+  margin: 5vh 0;
 `;
 
 const CarouselContainer = styled.div`
@@ -132,7 +132,7 @@ const CardsContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  flex: 1; /* 讓卡片容器佔據剩餘空間 */
+  flex: 1;
 `;
 
 const Card = styled.div`
@@ -196,10 +196,10 @@ const ArrowButton = styled.button<{ position: string }>`
   ${(props) =>
     props.position === 'left'
       ? `
-    transform: translateX(-50px); /* 將左箭頭稍微向左移出 */
+    transform: translateX(-7vw); /* 將左箭頭稍微向左移出 */
   `
       : `
-    transform: translateX(50px); /* 將右箭頭稍微向右移出 */
+    transform: translateX(7vw); /* 將右箭頭稍微向右移出 */
   `}
 `;
 

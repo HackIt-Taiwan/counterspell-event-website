@@ -240,13 +240,14 @@ const ColorEditor: React.FC = () => {
   };
 
   const handleSchemeChange = (scheme: string) => {
-    // 移除所有 color-scheme-* 類別
     const root = document.documentElement;
+
+    // 清除所有 color-scheme-* 類別
     root.className = ''; // 清除所有類別
     root.classList.add(scheme); // 添加新的配色方案類別
     setCurrentScheme(scheme);
 
-    // 更新方案名稱
+    // 設定方案名稱
     const schemeNames: { [key: string]: string } = {
       'color-scheme-dark': '暗色模式',
       'color-scheme-light': '淺色模式',
@@ -257,6 +258,11 @@ const ColorEditor: React.FC = () => {
       'color-scheme-colorful-low-contrast-dark': '色彩豐富低對比暗色',
     };
     setSchemeName(schemeNames[scheme] || '自定義模式');
+
+    // 清除之前透過 inline style 設定的 CSS 變數
+    Object.keys(variables).forEach(varName => {
+      root.style.removeProperty(varName);
+    });
 
     // 讀取 CSS 變數
     const vars = readCSSVariables(root);

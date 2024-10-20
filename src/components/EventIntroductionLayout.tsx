@@ -30,7 +30,6 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 20px;
 
   @media (max-width: 800px) {
     align-items: center;
@@ -39,12 +38,12 @@ const TextContainer = styled.div`
 `;
 
 const Description = styled.p`
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(14px, 3vw, 20px);
   line-height: 1.6;
   text-align: left;
-  max-width: 700px;
+  max-width: 50vw;
   word-wrap: break-word;
-  margin-bottom: 20px;
+  margin: 2vw 0.5vw;
   color: var(--text-color);
 
   @media (max-width: 800px) {
