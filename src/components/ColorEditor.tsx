@@ -340,6 +340,7 @@ const ColorEditor: React.FC = () => {
             <option value="color-scheme-colorful-high-contrast-dark">色彩豐富高對比暗色</option>
             <option value="color-scheme-colorful-low-contrast-bright">色彩豐富低對比亮色</option>
             <option value="color-scheme-colorful-low-contrast-dark">色彩豐富低對比暗色</option>
+            <option value="aqua-blue">水藍+藍</option>
             {/* 可以在這裡動態添加自定義配色方案 */}
           </Dropdown>
         </Section>

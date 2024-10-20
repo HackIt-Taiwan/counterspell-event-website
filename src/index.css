@@ -136,6 +136,19 @@
   --card-bg-color: #D3D3D3;
 }
 
+/* 水藍+藍 */
+.aqua-blue {
+  --text-color: #ffffff;
+  --background-color-dark: #1a1a1a;
+  --background-color-light: #1A1A1A;
+  --link-color: #43bde5;
+  --link-hover-color: #0055ff;
+  --button-background-dark: #383838;
+  --button-background-light: #292929;
+  --button-hover-color: #0055ff;
+  --button-focus-outline: 4px auto #ffffff;
+}
+
 /* Base Styles */
 body {
   margin: 0;
