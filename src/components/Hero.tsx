@@ -7,6 +7,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeroUFO from './HeroUFO';
+import AstronautComponent from "./AstronautComponent";
 
 const HeroContainer = styled.div`
   display: flex;
@@ -105,6 +106,7 @@ const Hero: React.FC = () => {
           <HeroUFO />
         </UFOWrapper>
       </TitleContainer>
+      <AstronautComponent />
     </HeroContainer>
   );
 };
