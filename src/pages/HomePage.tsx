@@ -21,6 +21,8 @@ import SmoothScroll from "../components/SmoothScroll";
 import Mission from "../components/Mission";
 import ContactInfo from "../components/ContactInfo";
 import Carousel from "../components/Carousel.tsx";
+import EventInformationTransition from "../components/EventInformationTransition.tsx";
+import EventInformation from "../components/EventInformation.tsx";
 
 const bonusCards = [
   { id: 1, amount: "10000", awardName: "金牌", peopleCount: 1 },
@@ -38,6 +40,8 @@ const HomePage: React.FC = () => {
       <CounterspellIntroductionSection />
       <OrganizerIntroductionSection />
       <Carousel cards={bonusCards} />
+      <EventInformationTransition />
+      <EventInformation />
       <TransitionUFOAnimation />
       <EventTime />
       <TeamQualification />

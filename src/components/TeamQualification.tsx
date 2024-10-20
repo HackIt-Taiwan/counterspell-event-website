@@ -13,11 +13,11 @@ const SectionContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  min-width: 100vw;
   padding: 50px;
   height: 70vh;
   box-sizing: border-box;
   background-color: var(--background-color-light);
-  margin-left: 5vw;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -32,6 +32,7 @@ const LeftContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 50px;
+  margin-left: 5vw;
 
   @media (max-width: 768px) {
     width: 100%;

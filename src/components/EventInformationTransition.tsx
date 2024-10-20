@@ -3,13 +3,13 @@
 import React from 'react';
 import TextTransitionLayout from './TextTransitionLayout';
 
-const EventIntroTransition: React.FC = () => {
+const EventInformationTransition: React.FC = () => {
   return (
     <TextTransitionLayout
-      title="活動介紹"
-      subtitle="About Counterspell Taiwan"
+      title="賽事資訊"
+      subtitle=""
     />
   );
 };
 
-export default EventIntroTransition;
+export default EventInformationTransition;
