@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NavButtons from './components/NavButtons';
 import Workshop from './pages/Workshop';
-import ColorEditor from "./components/ColorEditor";
 import LatestNews from "./pages/LatestNews";
 import NewsDetailPage from "./components/NewsDetailPage";
 import { colorSchemes, CustomScheme } from './colorSchemes';
@@ -71,7 +70,6 @@ const App: React.FC = () => {
     <>
       <ColorSchemeStyles />
       <Router>
-        <ColorEditor />
         <NavButtons />
         <Routes>
           <Route path="/" element={<HomePage />} />
