@@ -107,6 +107,7 @@ const CardContent = styled.p`
 
 const TruckImage = styled.img<{ $isTouchDevice: boolean }>`
   position: absolute;
+  width: 15%;
   bottom: 0;
   height: ${({ $isTouchDevice }) => ($isTouchDevice ? '0' : '50rem')};
   top: 100px;

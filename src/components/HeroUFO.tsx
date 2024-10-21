@@ -3,7 +3,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import UFOImage from '../assets/ufo.png';
+import UFOImage from '../assets/ufo.svg';
 import { float } from '../animations';
 
 // Container for the UFO with floating animation.
