@@ -1,12 +1,13 @@
 /**
  * NavButtons Component
  * Renders the navigation bar with links and buttons, ensuring responsiveness and accessibility.
- * Updated to use CSS variables for colors and background.
+ * Updated to include the ColorEditor button on the left and optimize layout for production deployment.
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ColorEditor from './ColorEditor'; // 確保路徑正確
 
 // Styled component for the navigation container.
 const NavContainer = styled.nav`
@@ -14,7 +15,7 @@ const NavContainer = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; /* 分散對齊左右內容 */
   align-items: center;
   padding: 10px 40px;
   background-color: var(--background-color);
@@ -25,9 +26,29 @@ const NavContainer = styled.nav`
   backdrop-filter: blur(10px);
 
   @media (max-width: 768px) {
-    justify-content: center;
-    gap: 10px;
     padding: 10px 20px;
+    gap: 10px;
+  }
+`;
+
+// Left section for ColorEditor button
+const LeftSection = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 500px) {
+    display: none; /* 隱藏 ColorEditor 按鈕 */
+  }
+`;
+
+// Right section for navigation links and buttons
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 10px;
   }
 `;
 
@@ -73,7 +94,7 @@ const SolidButton = styled.button`
   }
 
   &:active {
-    background-color: #c55a2d; /* Adjust as needed */
+    background-color: #c55a2d; /* 調整顏色 */
     transform: translateY(1px);
   }
 
@@ -83,20 +104,79 @@ const SolidButton = styled.button`
   }
 `;
 
+// Styled component for the ColorEditor toggle button
+const ColorEditorButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--link-hover-color);
+  }
+
+  &:active {
+    color: var(--link-color);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+`;
+
+// Custom Hook to get the current window width
+const useWindowWidth = (): number => {
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      setWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return (): void => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return width;
+};
+
 // NavButtons Component
 const NavButtons: React.FC = () => {
+  const [isColorEditorOpen, setIsColorEditorOpen] = useState<boolean>(false);
+  const windowWidth = useWindowWidth();
+
+  const toggleColorEditor = () => {
+    setIsColorEditorOpen(!isColorEditorOpen);
+  };
+
   const handleRegisterClick = () => {
-    // Future functionality: link to the registration form or external page.
-    window.open('#', '_blank'); // Currently set to an invalid link.
+    // 未來功能：連結到報名表單或外部頁面。
+    window.open('#', '_blank'); // 目前設置為無效連結。
   };
 
   return (
-    <NavContainer>
-      <TextLink to="/">首頁</TextLink>
-      <TextLink to="/LatestNews">最新消息</TextLink>
-      <TextLink to="/workshop">工作坊</TextLink>
-      <SolidButton onClick={handleRegisterClick}>報名活動</SolidButton>
-    </NavContainer>
+    <>
+      <NavContainer>
+        <LeftSection>
+          {/* ColorEditor 按鈕 */}
+          <ColorEditorButton onClick={toggleColorEditor} aria-label="開啟配色編輯器">
+            🎨
+          </ColorEditorButton>
+        </LeftSection>
+        <RightSection>
+          <TextLink to="/">首頁</TextLink>
+          <TextLink to="/LatestNews">最新消息</TextLink>
+          <TextLink to="/workshop">工作坊</TextLink>
+          <SolidButton onClick={handleRegisterClick}>報名活動</SolidButton>
+        </RightSection>
+      </NavContainer>
+      {/* 僅在螢幕寬度 >= 500dp 時顯示 ColorEditor */}
+      {windowWidth >= 500 && <ColorEditor isOpen={isColorEditorOpen} onClose={() => setIsColorEditorOpen(false)} />}
+    </>
   );
 };
 

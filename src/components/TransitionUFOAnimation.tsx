@@ -5,10 +5,13 @@
 
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import UFOImage from '../assets/ufo.png';
+// Import the UFO image with correct type declaration
+import UFOImage from '../assets/big-ufo.svg';
 
-// Define the initial height for easier configuration
-const initialHeight = 1200; // Initial height for larger screens
+// Define breakpoints for easier configuration
+const SMALL_SCREEN_WIDTH = 800;
+const INITIAL_UFO_WIDTH = 300;
+const INITIAL_CONTAINER_HEIGHT = 1300;
 
 // Styled component for the UFO animation section
 const UFOContainer = styled.div<{ height: number }>`
@@ -22,36 +25,30 @@ const UFOContainer = styled.div<{ height: number }>`
   margin-top: 50vh;
 `;
 
-// Styled component for the UFO image
+// Styled component for the UFO image with adaptive margin
 const UFO = styled.img<{ width: number }>`
   width: ${({ width }) => width}px;
   height: auto;
+  min-width: calc(100vw - 20vw); // Limit width to 10vw from both sides
+  margin: 0 10vw; // Add 10vw margin on left and right
 `;
 
 // TransitionUFOAnimation Component
 const TransitionUFOAnimation: React.FC = () => {
-  const [containerHeight, setContainerHeight] = useState(initialHeight);
-  const [ufoWidth, setUFOWidth] = useState(300); // Initial width for larger screens
+  const [containerHeight, setContainerHeight] = useState(INITIAL_CONTAINER_HEIGHT);
+  const [ufoWidth, setUFOWidth] = useState(INITIAL_UFO_WIDTH);
 
-  // Detect window resize to dynamically adjust height and UFO size
+  // Detect window resize to dynamically adjust container height and UFO size
   useEffect(() => {
     const handleResize = () => {
-      const newWindowWidth = window.innerWidth;
+      const windowWidth = window.innerWidth;
 
       // Adjust container height dynamically for smaller screens
-      if (newWindowWidth < 800) {
-        setContainerHeight(initialHeight * 0.7); // Shrink height for small screens
-      } else {
-        setContainerHeight(initialHeight);
-      }
+      setContainerHeight(windowWidth < SMALL_SCREEN_WIDTH ? INITIAL_CONTAINER_HEIGHT * 0.7 : INITIAL_CONTAINER_HEIGHT);
 
-      // Calculate the new width for the UFO image if it exceeds screen width minus 20px
-      const maxWidth = newWindowWidth - 20;
-      if (ufoWidth > maxWidth) {
-        setUFOWidth(maxWidth); // Shrink UFO width to fit within screen width
-      } else {
-        setUFOWidth(300); // Default width for larger screens
-      }
+      // Calculate and set the new width for the UFO image to ensure it adapts correctly
+      const newUFOWidth = Math.min(windowWidth * 0.8, INITIAL_UFO_WIDTH);
+      setUFOWidth(newUFOWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -60,7 +57,7 @@ const TransitionUFOAnimation: React.FC = () => {
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [ufoWidth]);
+  }, []);
 
   return (
     <UFOContainer height={containerHeight}>

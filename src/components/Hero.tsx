@@ -1,13 +1,8 @@
-/*
-  Hero Component
-  Displays the hero section with the main title, subtitle, and the HeroUFO component.
-  Updated to include a subtitle and ensure responsiveness.
-*/
-
 import React from 'react';
 import styled from 'styled-components';
 import HeroUFO from './HeroUFO';
-import AstronautComponent from "./AstronautComponent";
+import AstronautComponent from './AstronautComponent';
+import BlackHoleComponent from './BlackHoleComponent';
 
 const HeroContainer = styled.div`
   display: flex;
@@ -107,6 +102,7 @@ const Hero: React.FC = () => {
         </UFOWrapper>
       </TitleContainer>
       <AstronautComponent />
+      <BlackHoleComponent />
     </HeroContainer>
   );
 };
