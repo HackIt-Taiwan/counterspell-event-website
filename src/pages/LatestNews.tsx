@@ -21,13 +21,14 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 48px;
-  margin: 0;
+  font-size: clamp(24px, 12vw, 72px);
+  margin: 0 auto;
   color: var(--text-color);
 `;
 
 const NewsItemContainer = styled(Link)`
   width: 80%;
+  max-width: 100%;
   margin: 20px 0;
   padding: 20px;
   border-radius: 25px;
@@ -47,13 +48,15 @@ const NewsItemContainer = styled(Link)`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
 `;
 
 const NewsText = styled.div`
-  font-size: 20px;
+  font-size: clamp(16px, 2.5vw, 20px);
   line-height: 1.5;
   color: var(--text-color);
+  max-width: 80%;
 `;
 
 const NewsDate = styled.div`
@@ -62,6 +65,7 @@ const NewsDate = styled.div`
   color: var(--text-color);
   display: flex;
   justify-content: flex-start;
+  font-size: clamp(14px, 2vw, 18px);
 `;
 
 const NewsImage = styled.img`
@@ -78,9 +82,9 @@ const NewsImage = styled.img`
 `;
 
 const NoNewsMessage = styled.div`
-  font-size: 24px;
+  font-size: clamp(18px, 3vw, 24px);
   color: var(--text-color);
-  margin-top: 50px;
+  margin-top: 5vw;
   text-align: center;
 `;
 
@@ -88,12 +92,11 @@ interface NewsItem {
   id: number;
   date: string;
   title: string;
-  image?: string; // image 是可選的
+  image?: string;
 }
 
 const LatestNews: React.FC = () => {
-  const newsList: NewsItem[] = [
-  ];
+  const newsList: NewsItem[] = [];
 
   return (
     <LatestNewsContainer>
