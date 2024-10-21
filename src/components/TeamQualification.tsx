@@ -1,55 +1,56 @@
 /*
   TeamQualification Component
-  Displays qualifications required to form a team, with animated checkmarks.
-  Updated to use CSS variables for colors and background.
+  Displays qualifications required to form a team with a consistent layout to EventTime.
+  Updated to align containers and remove animation dependencies.
 */
 
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HandDrawnCheckmark from '../assets/hand-drawn-checkmark.svg';
-import {ContainerTitle} from "./common/StyledComponents.tsx";
+import { ContainerTitle } from "./common/StyledComponents.tsx";
 
 const SectionContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  min-width: 100vw;
-  padding: 50px;
-  height: 70vh;
-  box-sizing: border-box;
+  justify-content: flex-start;
+  width: 100%;
   background-color: var(--background-color);
+  box-sizing: border-box;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin: 30vh 15vw 30vh 10vw;
 
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 20px;
+    align-items: center;
   }
 `;
 
 const LeftContentContainer = styled.div`
-  flex: 0 0 auto;
-  width: 40%;
+  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-right: 50px;
-  margin-left: 5vw;
+  justify-content: flex-start;
+  font-size: clamp(36px, 8vw, 64px);
+  font-family: 'Arial', sans-serif;
+  color: var(--text-color);
+  margin-right: 10vw;
 
   @media (max-width: 768px) {
     width: 100%;
-    margin-right: 0;
+    justify-content: center;
+    margin-bottom: 20px;
   }
 `;
 
 const RightContentContainer = styled.div`
-  flex: 0 0 auto;
-  width: 50%;
+  flex: 2;
   display: flex;
   flex-direction: column;
+  align-items: start;
   justify-content: center;
-
-  @media (min-width: 769px) {
-    max-width: 500px;
-  }
+  padding-right: 5vw;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -58,7 +59,7 @@ const RightContentContainer = styled.div`
 `;
 
 const SmallText = styled.p`
-  font-size: clamp(16px, 4vw, 20px);
+  font-size: clamp(16px, 2.5vw, 24px);
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
   text-align: left;
@@ -72,10 +73,12 @@ const SmallText = styled.p`
 const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 2vh;
 
   @media (max-width: 768px) {
-    justify-content: center;
+    align-items: center;
+    justify-content: start;
+    margin-left: 30%;
     width: 100%;
   }
 `;
@@ -89,10 +92,9 @@ const CheckmarkSVG = styled.img<{ checked: boolean }>`
 `;
 
 const CheckboxLabel = styled.span`
-  font-size: clamp(18px, 5vw, 30px);
+  font-size: clamp(18px, 3vw, 28px);
   font-family: 'Arial', sans-serif;
   line-height: 1.5;
-  vertical-align: middle;
   color: var(--text-color);
 `;
 
@@ -103,7 +105,7 @@ const TeamQualification: React.FC = () => {
     const handleScroll = () => {
       const windowHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
-      const triggerHeight = windowHeight * 0.9;
+      const triggerHeight = windowHeight * 0.5; // Adjust trigger height as needed
 
       if (scrollPosition > triggerHeight) {
         setCheckedItems([true, true]);
@@ -119,10 +121,12 @@ const TeamQualification: React.FC = () => {
 
   return (
     <SectionContainer>
+      {/* Left Side - Qualification Title */}
       <LeftContentContainer>
         <ContainerTitle>組隊資格</ContainerTitle>
       </LeftContentContainer>
 
+      {/* Right Side - Qualification Details */}
       <RightContentContainer>
         <SmallText>要參加活動，你需要...</SmallText>
         <CheckboxContainer>

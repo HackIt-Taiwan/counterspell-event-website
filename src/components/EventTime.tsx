@@ -1,106 +1,117 @@
 /**
  * EventTime Component
  * Displays event information such as date, time, and location in a responsive layout.
- * Updated to use CSS variables for text and background colors.
+ * Updated to remove animation and always display text-based information.
  */
 
 import React from 'react';
 import styled from 'styled-components';
-import {ContainerTitle} from "./common/StyledComponents.tsx";
+import { ContainerTitle } from "./common/StyledComponents.tsx";
+
+// Styled component for the main container ensuring full viewport height.
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin: 30vh 15vw 30vh 10vw;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+`;
 
 // Styled component for the left container displaying event information.
 const LeftContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: clamp(36px, 8vw, 64px); /* Increased font size */
+  justify-content: flex-start; /* Align title to the start for consistency */
+  font-size: clamp(36px, 8vw, 64px);
   font-family: 'Arial', sans-serif;
   color: var(--text-color);
+  margin-right: 10vw;
 `;
 
-// Styled component for the right container reserved for animations or additional content.
+// Styled component for the right container displaying event details.
 const RightContainer = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: center;
+  padding-right: 5vw;
 
   @media (max-width: 700px) {
-    display: none; /* Hide animation on screens smaller than 700px */
+    margin-top: 10vw;
+    padding: 0;
   }
 `;
 
-// Styled component for the main container ensuring full viewport height.
-const Container = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--background-color);
-
-  @media (max-width: 700px) {
-    flex-direction: column;
-    height: auto;
-    padding-bottom: 50px; /* Add margin at the bottom for small screens */
-  }
-`;
-
-// Styled component for small-screen text information.
-const SmallScreenInfo = styled.div`
-  padding: 20px;
-  text-align: center;
-  color: var(--text-color);
-
-  /* Add margin to prevent content from sticking together */
-  margin-bottom: 25vh;
-
-  div {
-    font-size: clamp(16px, 2vw, 32px); /* Adjust font size for each event detail */
-    margin-bottom: 10px;
-  }
+// Styled component for event detail rows.
+const EventDetail = styled.div`
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
 
   strong {
-    font-size: clamp(16px, 2vw, 32px); /* Adjust font size for <strong> */
+    font-size: clamp(16px, 3vw, 30px);
+    font-weight: bold;
+    color: var(--text-color);
   }
 
-  small {
-    display: block;
-    font-size: clamp(12px, 1vw, 22px); /* Adjust font size for the small note */
-    color: var(--link-hover-color);
-    margin-top: 15px;
+  span {
+    font-size: clamp(16px, 3vw, 30px);
+    font-weight: bold;
+    margin-left: 10px;
+    color: var(--text-color);
   }
 `;
 
-const EventTime: React.FC = () => {
-  const isSmallScreen = window.innerWidth < 700;
+// Styled component for small text within the event details.
+const SmallText = styled.small`
+  color: var(--link-hover-color);
+  margin-top: 10px;
+  font-size: clamp(12px, 2.5vw, 16px);
+  text-align: left;
+  overflow-wrap: break-word;
+  white-space: normal;
+  width: 90%;
+  max-width: 100%;
+  box-sizing: border-box;
 
+  @media (max-width: 700px) {
+    text-align: center;
+  }
+`;
+
+
+const EventTime: React.FC = () => {
   return (
     <Container>
-      {/* Left Side - Event Information */}
+      {/* Left Side - Event Information Title */}
       <LeftContainer>
         <ContainerTitle>活動資訊</ContainerTitle>
       </LeftContainer>
 
-      {/* Right Side - Reserved for animations or additional content */}
-      {!isSmallScreen && (
-        <RightContainer>
-          {/* Future content can be added here */}
-          <div>動畫區域</div>
-        </RightContainer>
-      )}
-
-      {/* For small screens, display text-based event details */}
-      {isSmallScreen && (
-        <SmallScreenInfo>
-          <div>
-            <strong>活動時間：</strong>2024/11/30 - 2024/12/01
-          </div>
-          <div>
-            <strong>活動地點：</strong>台北市
-          </div>
-          <small>具體活動時間將會於活動前使用Email寄出，請留意訊息</small>
-        </SmallScreenInfo>
-      )}
+      {/* Right Side - Event Details */}
+      <RightContainer>
+        <EventDetail>
+          <strong>活動時間：</strong>
+          <span>2024/11/30 - 2024/12/01</span>
+        </EventDetail>
+        <EventDetail>
+          <strong>活動地點：</strong>
+          <span>台北市</span>
+        </EventDetail>
+        <SmallText>
+          具體活動時間將會於活動前使用Email寄出，請留意訊息
+        </SmallText>
+      </RightContainer>
     </Container>
   );
 };
