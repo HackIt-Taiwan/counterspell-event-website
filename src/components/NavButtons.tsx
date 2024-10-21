@@ -1,13 +1,8 @@
-/**
- * NavButtons Component
- * Renders the navigation bar with links and buttons, ensuring responsiveness and accessibility.
- * Updated to include the ColorEditor button on the left and optimize layout for production deployment.
- */
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ColorEditor from './ColorEditor'; // 確保路徑正確
+import Tooltip from '@mui/material/Tooltip';
 
 // Styled component for the navigation container.
 const NavContainer = styled.nav`
@@ -79,26 +74,26 @@ const TextLink = styled(Link)`
 `;
 
 // Styled component for solid buttons.
-const SolidButton = styled.button`
-  background-color: var(--link-color);
+const SolidButton = styled.button<{ disabled: boolean }>`
+  background-color: ${({ disabled }) => (disabled ? '#ccc' : 'var(--link-color)')};
   border: none;
   color: var(--text-color);
   padding: 10px 20px;
   font-size: 18px;
   border-radius: 25px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   outline: none;
   font-family: 'Arial', sans-serif;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: var(--link-hover-color);
-    transform: translateY(-3px);
+    background-color: ${({ disabled }) => (disabled ? '#ccc' : 'var(--link-hover-color)')};
+    transform: ${({ disabled }) => (disabled ? 'none' : 'translateY(-3px)')};
   }
 
   &:active {
-    background-color: #c55a2d; /* 調整顏色 */
-    transform: translateY(1px);
+    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#c55a2d')};
+    transform: ${({ disabled }) => (disabled ? 'none' : 'translateY(1px)')};
   }
 
   @media (max-width: 768px) {
@@ -107,7 +102,6 @@ const SolidButton = styled.button`
   }
 `;
 
-// Styled component for the ColorEditor toggle button
 const ColorEditorButton = styled.button`
   background: none;
   border: none;
@@ -129,7 +123,7 @@ const ColorEditorButton = styled.button`
   @media (max-width: 768px) {
     font-size: 20px;
   }
-`;
+;`
 
 // Custom Hook to get the current window width
 const useWindowWidth = (): number => {
@@ -151,12 +145,14 @@ const useWindowWidth = (): number => {
 const NavButtons: React.FC = () => {
   const [isColorEditorOpen, setIsColorEditorOpen] = useState<boolean>(false);
   const windowWidth = useWindowWidth();
+  const isRegistrationEnabled = false; // 用變數管理報名功能的狀態
 
   const toggleColorEditor = () => {
     setIsColorEditorOpen(!isColorEditorOpen);
   };
 
   const handleRegisterClick = () => {
+    if (!isRegistrationEnabled) return;
     // 未來功能：連結到報名表單或外部頁面。
     window.open('#', '_blank'); // 目前設置為無效連結。
   };
@@ -174,7 +170,17 @@ const NavButtons: React.FC = () => {
           <TextLink to="/">首頁</TextLink>
           <TextLink to="/LatestNews">最新消息</TextLink>
           <TextLink to="/workshop">工作坊</TextLink>
-          <SolidButton onClick={handleRegisterClick}>報名活動</SolidButton>
+          <Tooltip title={isRegistrationEnabled ? '' : '報名功能尚未開放，敬請期待！'}>
+            <span>
+              {/* 將按鈕包在span中，以避免Tooltip與disabled屬性衝突 */}
+              <SolidButton
+                onClick={handleRegisterClick}
+                disabled={!isRegistrationEnabled}
+              >
+                報名活動
+              </SolidButton>
+            </span>
+          </Tooltip>
         </RightSection>
       </NavContainer>
       {/* 僅在螢幕寬度 >= 500px 時顯示 ColorEditor */}

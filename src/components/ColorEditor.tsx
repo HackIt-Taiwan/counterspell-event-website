@@ -84,7 +84,7 @@ interface ColorEditorProps {
 }
 
 const ColorEditor: React.FC<ColorEditorProps> = ({ isOpen, onClose }) => {
-  const [currentScheme, setCurrentScheme] = useState<string>('color-scheme-dark');
+  const [currentScheme, setCurrentScheme] = useState<string>('color-scheme-black-green');
 
   // 函數：從CSS變數讀取當前配色方案
   const readCSSVariables = (root: HTMLElement): { [key: string]: string } => {

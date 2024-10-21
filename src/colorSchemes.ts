@@ -9,6 +9,21 @@ export interface CustomScheme {
 
 export const colorSchemes: CustomScheme[] = [
   {
+    name: '黑綠配色',
+    className: 'color-scheme-black-green',
+    translation: '黑綠配色',
+    variables: {
+      '--text-color': '#ededed',
+      '--background-color': '#292929',
+      '--link-color': '#4fab61',
+      '--link-hover-color': '#FF6347',
+      '--button-background': '#333333',
+      '--button-hover-color': '#FF4500',
+      '--button-focus-outline': '4px auto #FF4500',
+      '--card-bg-color': '#e0f7fa',
+    },
+  },
+  {
     name: 'Dark Mode',
     className: 'color-scheme-dark',
     translation: '暗色模式',
@@ -65,21 +80,6 @@ export const colorSchemes: CustomScheme[] = [
       '--button-background': '#FFDAB9',
       '--button-hover-color': '#ADD8E6',
       '--button-focus-outline': '#ADD8E6',
-      '--card-bg-color': '#e0f7fa',
-    },
-  },
-  {
-    name: '黑綠配色',
-    className: 'color-scheme-black-green',
-    translation: '黑綠配色',
-    variables: {
-      '--text-color': '#ededed',
-      '--background-color': '#292929',
-      '--link-color': '#4fab61',
-      '--link-hover-color': '#FF6347',
-      '--button-background': '#333333',
-      '--button-hover-color': '#FF4500',
-      '--button-focus-outline': '4px auto #FF4500',
       '--card-bg-color': '#e0f7fa',
     },
   },
