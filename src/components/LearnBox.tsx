@@ -22,14 +22,16 @@ const darkenColor = (color: string, amount: number): string => {
 };
 
 const LearnBoxContainer = styled.div`
+  position: fixed;
+  top: 80vh;
+  left: 0.5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2vw;
   min-height: 5vh;
   max-height: 15vh;
-  background-color: var(--background-color);
-  width: 100%;
+  background-color: transparent;
   box-sizing: border-box;
   gap: 20px;
 
@@ -59,9 +61,12 @@ const LearnItem = styled.div<LearnItemProps>`
   flex: 1;
   padding: 10px 0;
   min-height: 7vh;
+  min-width: 12vw;
   background-color: ${(props) => props.color || 'var(--link-color)'};
   font-size: 1.5vw;
   font-family: Arial, sans-serif;
+  color: black;
+  font-weight: bold;
   border-radius: 10px;
   display: flex;
   justify-content: center;

@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect, FC } from 'react';
-import styled, {css, keyframes} from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { ContainerTitle } from "./common/StyledComponents";
 
 // Type definition for a mission item
@@ -24,9 +24,9 @@ interface PlanetProps {
   scale: number;
   floatOffset: number;
   animationDuration: string;
-  isFlipped: boolean;
+  isLit: boolean;
   isCard: boolean;
-  onFlip: () => void;
+  onLightUp: () => void;
   children: React.ReactNode;
 }
 
@@ -70,13 +70,14 @@ const PlanetStyled = styled.div<{
   scale: number;
   $floatOffset: number;
   $animationDuration: string;
-  $isFlipped: boolean;
+  $isLit: boolean;
   $isCard: boolean;
 }>`
-  width: ${({ $isCard, scale }) => ($isCard ? '100%' : `${150 * scale}px`)};
+  width: ${({ $isCard, scale }) => ($isCard ? '90%' : `${150 * scale}px`)};
+  max-width: ${({ $isCard }) => ($isCard ? '500px' : 'none')};
   height: ${({ $isCard, scale }) => ($isCard ? 'auto' : `${150 * scale}px`)};
-  background-color: ${({ $isFlipped }) => ($isFlipped ? 'var(--link-color)' : 'var(--button-background)')};
-  color: ${({ $isFlipped }) => ($isFlipped ? 'var(--text-color)' : 'transparent')};
+  background-color: ${({ $isLit }) => ($isLit ? 'var(--link-color)' : 'var(--button-background)')};
+  color: ${({ $isLit }) => ($isLit ? 'var(--text-color)' : 'transparent')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,31 +88,21 @@ const PlanetStyled = styled.div<{
   padding: ${({ $isCard, scale }) => ($isCard ? '20px' : `${12 * scale}px`)};
   margin: ${({ $isCard }) => ($isCard ? '10px 0' : '0')};
   box-shadow: ${({ $isCard }) => ($isCard ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none')};
-  transition: transform 0.6s ease, box-shadow 0.3s ease, background-color 0.6s ease;
+  transition: background-color 0.6s ease, color 0.6s ease, box-shadow 0.3s ease;
 
-  /* Floating animation for non-card layout */
+  /* 浮動動畫 */
   animation: ${({ $isCard, $floatOffset, $animationDuration }) =>
     !$isCard ? css`${float($floatOffset)} ${$animationDuration} ease-in-out infinite` : 'none'};
 
-  /* Hover and click effects */
-  &:hover {
-    transform: ${({ $isCard, $isFlipped }) =>
-      $isCard
-        ? 'none'
-        : $isFlipped
-          ? 'none'
-          : 'scale(1.1)'};
-    box-shadow: ${({ $isCard }) =>
-      $isCard
-        ? '0 6px 12px rgba(0, 0, 0, 0.2)'
-        : '0px 0px 15px rgba(0, 0, 0, 0.3)'};
-    background-color: var(--link-color);
-    color: var(--text-color);
-    cursor: pointer;
-  }
+  /* 光效 */
+  ${({ $isLit }) => $isLit && css`
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  `}
 
-  /* Ensure cursor pointer for clickable elements */
-  ${({ onClick }) => onClick && 'cursor: pointer;'}
+    /* 媒體查詢以動態調整寬度 */
+  @media (max-width: 600px) {
+  width: ${({ $isCard }) => ($isCard ? '95%' : 'auto')};
+}
 `;
 
 // Styled container for planet positioning
@@ -130,31 +121,33 @@ const PlanetContainerStyled = styled.div<PlanetContainerProps>`
 const CardContainer = styled.div`
   width: 100%;
   max-width: 600px;
+  margin: 5vw auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 10%;
 `;
 
 /**
  * Planet Component
- * Renders an individual planet or card with interactive flip functionality.
+ * Renders an individual planet or card with interactive light up functionality.
  */
 const Planet: FC<PlanetProps> = ({
                                    scale,
                                    floatOffset,
                                    animationDuration,
-                                   isFlipped,
+                                   isLit,
                                    isCard,
-                                   onFlip,
+                                   onLightUp,
                                    children,
                                  }) => (
   <PlanetStyled
     scale={scale}
     $floatOffset={floatOffset}
     $animationDuration={animationDuration}
-    $isFlipped={isFlipped}
+    $isLit={isLit}
     $isCard={isCard}
-    onClick={onFlip}
+    onMouseEnter={onLightUp}
   >
     {children}
   </PlanetStyled>
@@ -175,7 +168,7 @@ const PlanetContainer: FC<PlanetContainerProps> = ({ xOffset, yOffset, children 
  * Main component that displays mission statements as interactive planets or cards.
  */
 const Mission: FC = () => {
-  const [flippedPlanets, setFlippedPlanets] = useState<{ [key: string]: boolean }>({});
+  const [litPlanets, setLitPlanets] = useState<{ [key: string]: boolean }>({});
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(window.innerWidth < 900);
 
   // List of mission statements with positioning and animation details
@@ -226,13 +219,13 @@ const Mission: FC = () => {
   };
 
   /**
-   * Toggles the flipped state of a specific mission item.
-   * @param missionKey - The unique key of the mission to flip.
+   * Marks a specific mission item as lit.
+   * @param missionKey - The unique key of the mission to light up.
    */
-  const toggleFlip = (missionKey: string) => {
-    setFlippedPlanets((prevState) => ({
+  const lightUp = (missionKey: string) => {
+    setLitPlanets((prevState) => ({
       ...prevState,
-      [missionKey]: !prevState[missionKey],
+      [missionKey]: true,
     }));
   };
 
@@ -256,11 +249,11 @@ const Mission: FC = () => {
               scale={mission.scale}
               floatOffset={mission.floatOffset}
               animationDuration={mission.animationDuration}
-              isFlipped={flippedPlanets[mission.key] || false}
+              isLit={litPlanets[mission.key] || false}
               isCard={true}
-              onFlip={() => toggleFlip(mission.key)}
+              onLightUp={() => lightUp(mission.key)}
             >
-              {flippedPlanets[mission.key] ? mission.text : '點擊以查看詳情'}
+              {mission.text}
             </Planet>
           ))}
         </CardContainer>
@@ -272,9 +265,9 @@ const Mission: FC = () => {
               scale={mission.scale}
               floatOffset={mission.floatOffset}
               animationDuration={mission.animationDuration}
-              isFlipped={flippedPlanets[mission.key] || false}
+              isLit={litPlanets[mission.key] || false}
               isCard={false}
-              onFlip={() => toggleFlip(mission.key)}
+              onLightUp={() => lightUp(mission.key)}
             >
               {mission.text}
             </Planet>

@@ -15,19 +15,22 @@ const NavContainer = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  justify-content: space-between; /* 分散對齊左右內容 */
+  justify-content: space-between; /* 默認為兩側對齊 */
   align-items: center;
   padding: 10px 40px;
-  background-color: var(--background-color);
+  background-color: transparent;
   width: 100%;
   box-sizing: border-box;
   gap: 20px;
   z-index: 1000;
-  backdrop-filter: blur(10px);
 
   @media (max-width: 768px) {
     padding: 10px 20px;
     gap: 10px;
+  }
+
+  @media (max-width: 500px) {
+    justify-content: flex-end; /* 當螢幕寬度 < 500px 時，將內容對齊至右側 */
   }
 `;
 
@@ -37,7 +40,7 @@ const LeftSection = styled.div`
   align-items: center;
 
   @media (max-width: 500px) {
-    display: none; /* 隱藏 ColorEditor 按鈕 */
+    display: none; /* 螢幕寬度 < 500px 時隱藏左側 */
   }
 `;
 
@@ -174,7 +177,7 @@ const NavButtons: React.FC = () => {
           <SolidButton onClick={handleRegisterClick}>報名活動</SolidButton>
         </RightSection>
       </NavContainer>
-      {/* 僅在螢幕寬度 >= 500dp 時顯示 ColorEditor */}
+      {/* 僅在螢幕寬度 >= 500px 時顯示 ColorEditor */}
       {windowWidth >= 500 && <ColorEditor isOpen={isColorEditorOpen} onClose={() => setIsColorEditorOpen(false)} />}
     </>
   );

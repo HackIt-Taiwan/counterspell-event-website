@@ -23,7 +23,7 @@ const JoinButtonStyled = styled.button`
   font-size: 1.5rem;
   font-family: Arial, sans-serif;
   font-weight: 600;
-  color: var(--text-color);
+  color: black;
   background-color: var(--link-color);
   border: none;
   border-radius: 30px;

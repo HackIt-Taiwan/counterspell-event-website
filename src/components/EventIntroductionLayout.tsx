@@ -13,7 +13,7 @@ const SectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 100px 50px 100px;
+  padding: 50px 100px;
   min-height: 70vh;
   box-sizing: border-box;
   background-color: var(--background-color);
@@ -22,7 +22,7 @@ const SectionContainer = styled.div`
     flex-direction: column;
     padding: 20px;
     height: auto;
-    margin: 25vh 0;
+    margin: 15vh 0;
   }
 `;
 
@@ -34,6 +34,7 @@ const TextContainer = styled.div`
   @media (max-width: 800px) {
     align-items: center;
     margin-right: 0;
+    width: 100%;
   }
 `;
 
@@ -48,6 +49,8 @@ const Description = styled.p`
 
   @media (max-width: 800px) {
     text-align: center;
+    max-width: 100%;
+    margin: 2vw 0;
   }
 `;
 
