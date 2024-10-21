@@ -60,7 +60,7 @@ const CarouselContainer = styled.div`
   @media (max-width: 500px) { /* 新增500px斷點 */
     width: 100%;
     height: 35vh; /* 減少高度以適應小螢幕 */
-    margin: 3.5vh auto;
+    margin: 20vw auto;
   }
 `;
 
