@@ -52,7 +52,7 @@ const App: React.FC = () => {
       }
     } else {
       // 如果沒有存儲的配色方案，應用預設配色方案
-      const defaultScheme = colorSchemes.find(scheme => scheme.className === 'color-scheme-dark');
+      const defaultScheme = colorSchemes.find(scheme => scheme.className === 'color-scheme-black-green');
       if (defaultScheme) {
         document.documentElement.className = defaultScheme.className;
         Object.entries(defaultScheme.variables).forEach(([key, value]) => {

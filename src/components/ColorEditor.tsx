@@ -105,7 +105,7 @@ const ColorEditor: React.FC<ColorEditorProps> = ({ isOpen, onClose }) => {
     if (isOpen) {
       const root = document.documentElement;
       const classes = root.className.split(' ');
-      const schemeClass = classes.find(cls => cls.startsWith('color-scheme-')) || 'color-scheme-dark';
+      const schemeClass = classes.find(cls => cls.startsWith('color-scheme-')) || 'color-scheme-black-green';
       setCurrentScheme(schemeClass);
     }
   }, [isOpen]);
