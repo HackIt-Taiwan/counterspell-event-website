@@ -77,7 +77,7 @@ const TextLink = styled(Link)`
 const SolidButton = styled.button<{ disabled: boolean }>`
   background-color: ${({ disabled }) => (disabled ? '#ccc' : 'var(--link-color)')};
   border: none;
-  color: var(--text-color);
+  color: black;
   padding: 10px 20px;
   font-size: 18px;
   border-radius: 25px;
