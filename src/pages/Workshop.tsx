@@ -1,7 +1,9 @@
+// src/pages/Workshop.tsx
+
 /*
   Workshop Component
   Provides information about the game development workshop offered by Counterspell Taiwan.
-  Updated to use CSS variables for colors and background.
+  Updated to preload background images to prevent flashing.
 */
 
 import React, { useEffect, useState } from 'react';
@@ -43,7 +45,7 @@ const Title = styled.h1`
   text-align: center;
   margin-top: 5rem;
   margin-bottom: 0.5rem;
-  font-family: Audiowide,serif;
+  font-family: Audiowide, serif;
 
   @media (max-width: 800px) {
     font-size: 2rem;
@@ -91,8 +93,18 @@ const Workshop: React.FC = () => {
       setBackgroundImage(isVertical ? BackgroundVertical : BackgroundHorizontal);
     };
 
-    // 初始判斷背景
+    // 預加載背景圖片
+    const preloadImages = () => {
+      const horizontalImg = new Image();
+      horizontalImg.src = BackgroundHorizontal;
+
+      const verticalImg = new Image();
+      verticalImg.src = BackgroundVertical;
+    };
+
+    // 初始判斷背景並預加載圖片
     updateBackground();
+    preloadImages();
 
     // 螢幕調整時重新判斷背景
     window.addEventListener('resize', updateBackground);
