@@ -23,6 +23,7 @@ import ContactInfo from "../components/ContactInfo";
 import Carousel from "../components/Carousel.tsx";
 import EventInformationTransition from "../components/EventInformationTransition.tsx";
 import EventInformation from "../components/EventInformation.tsx";
+import { Helmet } from 'react-helmet-async';
 
 const bonusCards = [
   { id: 1, amount: "10000", awardName: "金牌", peopleCount: 1 },
@@ -35,6 +36,17 @@ const bonusCards = [
 const HomePage: React.FC = () => {
   return (
     <SmoothScroll>
+      <Helmet>
+        <title>Counterspell Taiwan - 台灣首屆青少年遊戲黑客松</title>
+        <meta name="description" content="參加Counterspell Taiwan，台灣首屆由青少年為青少年舉辦的遊戲開發黑客松。30小時內，展示您的創意與技術，贏取豐厚獎金！" />
+        <meta name="keywords" content="Counterspell, 台灣, 黑客松, 遊戲開發, 青少年, Hackathon" />
+        <meta property="og:title" content="Counterspell Taiwan - 台灣首屆青少年遊戲黑客松" />
+        <meta property="og:description" content="參加Counterspell Taiwan，台灣首屆由青少年為青少年舉辦的遊戲開發黑客松。30小時內，展示您的創意與技術，贏取豐厚獎金！" />
+        <meta property="og:image" content="/src/assets/logo.png" />
+        <meta property="og:url" content="https://www.counterspell.tw" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://www.counterspell.tw" />
+      </Helmet>
       <Hero />
       <EventIntroTransition />
       <CounterspellIntroductionSection />

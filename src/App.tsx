@@ -1,6 +1,6 @@
 // App.tsx
 
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NavButtons from './components/NavButtons';
@@ -8,7 +8,8 @@ import Workshop from './pages/Workshop';
 import LatestNews from "./pages/LatestNews";
 import NewsDetailPage from "./components/NewsDetailPage";
 import { colorSchemes, CustomScheme } from './colorSchemes';
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import { HelmetProvider } from 'react-helmet-async';
 
 // 定義配色方案類型
 interface CustomSchemes {
@@ -67,7 +68,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <HelmetProvider>
       <ColorSchemeStyles />
       <Router>
         <NavButtons />
@@ -78,7 +79,7 @@ const App: React.FC = () => {
           <Route path="/news/:id" element={<NewsDetailPage />} />
         </Routes>
       </Router>
-    </>
+    </HelmetProvider>
   );
 };
 

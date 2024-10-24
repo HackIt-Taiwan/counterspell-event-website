@@ -1,3 +1,5 @@
+// src/components/Hero.tsx
+
 import React from 'react';
 import styled from 'styled-components';
 import HeroUFO from './HeroUFO';

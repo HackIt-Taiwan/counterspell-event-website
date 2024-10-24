@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ColorEditor from './ColorEditor'; // 確保路徑正確
+import ColorEditor from './ColorEditor';
 import Tooltip from '@mui/material/Tooltip';
 
 // Styled component for the navigation container.
@@ -102,6 +102,7 @@ const SolidButton = styled.button<{ disabled: boolean }>`
   }
 `;
 
+// Styled component for ColorEditor button.
 const ColorEditorButton = styled.button`
   background: none;
   border: none;
@@ -162,20 +163,23 @@ const NavButtons: React.FC = () => {
       <NavContainer>
         <LeftSection>
           {/* ColorEditor 按鈕 */}
-          <ColorEditorButton onClick={toggleColorEditor} aria-label="開啟配色編輯器">
-            🎨
-          </ColorEditorButton>
+          <Tooltip title="選擇配色方案">
+            <ColorEditorButton onClick={toggleColorEditor} aria-label="開啟配色編輯器">
+              🎨
+            </ColorEditorButton>
+          </Tooltip>
         </LeftSection>
         <RightSection>
-          <TextLink to="/">首頁</TextLink>
-          <TextLink to="/LatestNews">最新消息</TextLink>
-          <TextLink to="/workshop">工作坊</TextLink>
-          <Tooltip title={isRegistrationEnabled ? '' : '報名功能尚未開放，敬請期待！'}>
+          <TextLink to="/" aria-label="前往首頁">首頁</TextLink>
+          <TextLink to="/LatestNews" aria-label="前往最新消息">最新消息</TextLink>
+          <TextLink to="/workshop" aria-label="前往工作坊">工作坊</TextLink>
+          <Tooltip title={isRegistrationEnabled ? '立即報名' : '報名功能尚未開放，敬請期待！'}>
             <span>
               {/* 將按鈕包在span中，以避免Tooltip與disabled屬性衝突 */}
               <SolidButton
                 onClick={handleRegisterClick}
                 disabled={!isRegistrationEnabled}
+                aria-label="報名活動"
               >
                 報名活動
               </SolidButton>
