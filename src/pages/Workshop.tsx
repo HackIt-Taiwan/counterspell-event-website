@@ -107,8 +107,8 @@ const Workshop: React.FC = () => {
         <Title>Counterspell Taiwan</Title>
         <SubTitle>遊戲入門開發工作坊</SubTitle>
         <EventInfoBox>
-          <p>活動時間: 待定</p>
-          <p>地點: 台北市</p>
+          <p>活動時間: 11/30-12/1</p>
+          <p>地點: 臺北城市科技大學</p>
         </EventInfoBox>
         <JoinButton />
       </Content>
