@@ -27,18 +27,9 @@ const JoinButtonStyled = styled.button`
   background-color: var(--link-color);
   border: none;
   border-radius: 30px;
-  cursor: pointer;
+  cursor: not-allowed; /* 修改為不可點擊的樣式 */
   transition: background-color 0.3s ease, transform 0.2s ease;
-
-  &:hover {
-    background-color: var(--link-hover-color);
-    transform: translateY(-5px);
-  }
-
-  &:active {
-    background-color: #d84315; /* Adjust as needed */
-    transform: translateY(2px);
-  }
+  opacity: 0.6; /* 調低透明度來顯示按鈕已停用 */
 
   @media (max-width: 800px) {
     padding: 12px 24px;
@@ -47,14 +38,10 @@ const JoinButtonStyled = styled.button`
 `;
 
 const JoinButton: React.FC = () => {
-  const handleClick = () => {
-    window.open('#', '_blank');
-  };
-
   return (
     <JoinButtonContainer>
-      <JoinButtonStyled onClick={handleClick}>
-        報名參加工作坊！
+      <JoinButtonStyled disabled>
+        尚未開放報名！
       </JoinButtonStyled>
     </JoinButtonContainer>
   );
