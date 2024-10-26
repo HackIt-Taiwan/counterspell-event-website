@@ -54,7 +54,7 @@ const JoinButton: React.FC = () => {
   return (
     <JoinButtonContainer>
       <JoinButtonStyled onClick={handleClick}>
-        報名參加工作坊！
+        尚未開放報名！
       </JoinButtonStyled>
     </JoinButtonContainer>
   );
