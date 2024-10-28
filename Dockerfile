@@ -10,6 +10,10 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 4173
+# 使用 serve 來提供靜態文件
+RUN npm install -g serve
 
-CMD ["npm", "start"]
+EXPOSE 3000
+
+# 使用 serve 來提供構建後的文件
+CMD ["serve", "-s", "dist", "-l", "3000"]
